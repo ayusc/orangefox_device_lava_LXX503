@@ -25,3 +25,6 @@ ro.hardware.gatekeeper=beanpod
 
 # Kmsetkey
 ro.hardware.kmsetkey=beanpod
+
+# Keymaster
+keymaster_ver=4.1
