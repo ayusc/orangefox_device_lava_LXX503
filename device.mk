@@ -76,6 +76,8 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.1 \
     vendor.mediatek.hardware.keymaster_attestation@1.0 \
     vendor.mediatek.hardware.keymaster_attestation@1.1 \
+    android.hardware.boot@1.2-mtkimpl \
+    android.hardware.boot@1.2-mtkimpl.recovery \
     android.hardware.gatekeeper@1.0-impl \
     gatekeeper.default \
     kmsetkey.beanpod \
