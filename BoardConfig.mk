@@ -130,6 +130,7 @@ TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone4/temp
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
 TW_CUSTOM_BRIGHTNESS_PATH := "/sys/class/leds/flashlight/brightness"
 TW_FORCE_CPUINFO_FOR_DEVICE_ID := true
+TW_NO_FASTBOOT_BOOT := true
 
 # Debug
 TWRP_INCLUDE_LOGCAT := true
