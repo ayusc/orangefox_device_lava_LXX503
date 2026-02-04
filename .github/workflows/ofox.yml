@@ -1,0 +1,85 @@
+name: OrangeFox Recovery Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Recovery 
+    runs-on: ubuntu-22.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+              
+      - name: Clean-up
+        uses: rokibhasansagar/slimhub_actions@main
+
+      - name: Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 24
+
+      - name: Build Environment
+        run: |
+          sudo apt install aria2 -y
+          git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
+          cd scripts
+          sudo bash setup/android_build_env.sh
+
+      - name: Set-up Manifest
+        run: |
+          export MANIFEST_BRANCH=12.1
+          mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
+          cd ${GITHUB_WORKSPACE}/OrangeFox
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git clone https://gitlab.com/OrangeFox/sync.git -b master
+          cd sync
+          ./orangefox_sync.sh --branch $MANIFEST_BRANCH --path ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
+
+      - name: Clone Device Tree
+        run: |
+          export MANIFEST_BRANCH=12.1
+          export DEVICE_TREE=https://github.com/ayusc/orangefox_device_lava_LXX503
+          export DEVICE_TREE_BRANCH=android-14
+          export DEVICE_PATH=device/lava/LXX503
+
+          cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
+          git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH ./$DEVICE_PATH
+          cd $DEVICE_PATH
+          echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Building OrangeFox
+        run: |
+          export MANIFEST_BRANCH=12.1
+          export DEVICE_NAME=LXX503
+          export BUILD_TARGET=boot
+
+          cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
+          set +e
+          source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          set -e
+          lunch omni_${DEVICE_NAME}-eng
+          make clean
+          mka adbd ${BUILD_TARGET}image
+          cp out/target/product/LXX503/boot.img out/target/product/LXX503/ofox.img
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            OrangeFox/fox_12.1/out/target/product/LXX503/ofox.img
+          name: OrangeFox Recovery for Lava Blaze 5G (LXX503)
+          tag_name: ${{ github.run_id }}
+          body: |
+            OrangeFox Recovery Build - Unofficial 
+            
+            Device: Lava Blaze 5G
+            Codename: LXX503
+            Target Image: ofox.img

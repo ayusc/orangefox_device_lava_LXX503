@@ -1,0 +1,98 @@
+soong_namespace {
+}
+
+cc_prebuilt_library_shared {
+    name: "libkeymaster4",
+    srcs: ["recovery/root/vendor/lib64/libkeymaster4.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "libkeymaster41",
+    srcs: ["recovery/root/vendor/lib64/libkeymaster41.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "libkeymaster4support",
+    srcs: ["recovery/root/vendor/lib64/libkeymaster4support.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "libkeymaster_messages",
+    srcs: ["recovery/root/vendor/lib64/libkeymaster_messages.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.keymaster@4.0",
+    srcs: ["recovery/root/vendor/lib64/android.hardware.keymaster@4.0.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.keymaster@4.1",
+    srcs: ["recovery/root/vendor/lib64/android.hardware.keymaster@4.1.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.mediatek.hardware.keymaster_attestation@1.0",
+    srcs: ["recovery/root/vendor/lib64/vendor.mediatek.hardware.keymaster_attestation@1.0.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.mediatek.hardware.keymaster_attestation@1.1",
+    srcs: ["recovery/root/vendor/lib64/vendor.mediatek.hardware.keymaster_attestation@1.1.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.gatekeeper@1.0-impl",
+    srcs: ["recovery/root/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "gatekeeper.default",
+    srcs: ["recovery/root/vendor/lib64/hw/gatekeeper.default.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "kmsetkey.beanpod",
+    srcs: ["recovery/root/vendor/lib64/hw/kmsetkey.beanpod.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "libSoftGatekeeper",
+    srcs: ["recovery/root/vendor/lib64/hw/libSoftGatekeeper.so"],
+    stl: "none",
+    system_shared_libs: [],
+    installable: false,
+}
