@@ -1,9 +1,51 @@
 LOCAL_PATH := device/lava/LXX503
 
 # Virtual A/B
-ENABLE_VIRTUAL_AB := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
+
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+AB_OTA_UPDATER := true
+ENABLE_VIRTUAL_AB := true
+AB_OTA_PARTITIONS += \
+    apusys \
+    audio_dsp \
+    boot \
+    ccu \
+    dpm \
+    dtbo \
+    gpueb \
+    gz \
+    lk \
+    logo \
+    mcf_ota \
+    mcupm \
+    md1img \
+    mvpu_algo \
+    odm \
+    odm_dlkm \
+    pi_img \
+    preloader_raw \
+    product \
+    scp \
+    spmfw \
+    sspm \
+    system \
+    system_ext \
+    tee \
+    vbmeta \
+    vbmeta_system \
+    vbmeta_vendor \
+    vcp \
+    vendor \
+    vendor_boot \
+    vendor_dlkm 
+    
+# Configure emulated_storage.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+
+# Enable Fuse Passthrough
+PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
@@ -11,6 +53,12 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
+    
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_vendor=true \
+    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+    FILESYSTEM_TYPE_vendor=erofs \
+    POSTINSTALL_OPTIONAL_vendor=true
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
@@ -18,20 +66,29 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-service 
 
 PRODUCT_PACKAGES += \
-    bootctrl.mt6833
-
-PRODUCT_PACKAGES += \
     bootctrl.mt6833 \
     libgptutils \
     libz \
     libcutils
-
-PRODUCT_PACKAGES += \
     otapreopt_script \
     cppreopts.sh \
     update_engine \
     update_verifier \
-    update_engine_sideload 
+    update_engine_sideload \
+    checkpoint_gc 
+    create_pl_dev \
+    create_pl_dev.recovery
+
+PRODUCT_PACKAGES_DEBUG += \
+    bootctrl
+
+# Copy fstab
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/fstab.mt6833:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.mt6833
+
+# Otacert
+PRODUCT_EXTRA_RECOVERY_KEYS += \
+    $(DEVICE_PATH)/security/LXX503_releasekey
 
 # Keymaster & Gatekeeper blobs for FBE decryption support
 PRODUCT_PACKAGES += \
