@@ -46,7 +46,7 @@ jobs:
         run: |
           export MANIFEST_BRANCH=12.1
           export DEVICE_TREE=https://github.com/ayusc/orangefox_device_lava_LXX503
-          export DEVICE_TREE_BRANCH=android-14
+          export DEVICE_TREE_BRANCH=main
           export DEVICE_PATH=device/lava/LXX503
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
