@@ -49,7 +49,7 @@ PRODUCT_PACKAGES += \
     bootctrl.mt6833 \
     libgptutils \
     libz \
-    libcutils
+    libcutils \
     otapreopt_script \
     cppreopts.sh \
     update_engine \
