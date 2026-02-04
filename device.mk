@@ -8,38 +8,19 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 AB_OTA_UPDATER := true
 ENABLE_VIRTUAL_AB := true
 AB_OTA_PARTITIONS += \
-    apusys \
-    audio_dsp \
     boot \
-    ccu \
-    dpm \
     dtbo \
-    gpueb \
-    gz \
-    lk \
-    logo \
-    mcf_ota \
-    mcupm \
-    md1img \
-    mvpu_algo \
-    odm \
-    odm_dlkm \
-    pi_img \
-    preloader_raw \
-    product \
-    scp \
-    spmfw \
-    sspm \
-    system \
-    system_ext \
-    tee \
+    vendor_boot \
     vbmeta \
     vbmeta_system \
     vbmeta_vendor \
-    vcp \
+    system \
+    system_ext \
+    product \
     vendor \
-    vendor_boot \
-    vendor_dlkm 
+    odm \
+    vendor_dlkm \
+    odm_dlkm
     
 # Configure emulated_storage.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
@@ -75,7 +56,7 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_verifier \
     update_engine_sideload \
-    checkpoint_gc 
+    checkpoint_gc \
     create_pl_dev \
     create_pl_dev.recovery
 
