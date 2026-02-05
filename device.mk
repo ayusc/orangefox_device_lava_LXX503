@@ -42,8 +42,6 @@ PRODUCT_PACKAGES += \
     gatekeeper.default \
     kmsetkey.beanpod
 
-# Copy fstab (Critical for mounting partitions)
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/fstab.mt6833:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.mt6833
+# Copy manifest (required for decryption + logo hang fix)
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/recovery/root/system/etc/vintf/manifest.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/manifest.xml
