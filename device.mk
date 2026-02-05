@@ -1,4 +1,4 @@
-LOCAL_PATH := device/lava/LXX503
+DEVICE_PATH := device/lava/LXX503
 
 # Virtual A/B - Keep these for partition mounting logic
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
