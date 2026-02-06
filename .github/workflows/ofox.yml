@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
               
       - name: Clean-up
         uses: rokibhasansagar/slimhub_actions@main
@@ -26,10 +26,19 @@ jobs:
 
       - name: Build Environment
         run: |
-          sudo apt install aria2 -y
+          sudo apt install aria2 ccache -y
           git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
           cd scripts
           sudo bash setup/android_build_env.sh
+
+      - name: Set-up ccache
+        uses: actions/cache@v5
+        with:
+          path: /home/runner/.ccache
+          key: ccache-${{ github.workflow }}-${{ github.ref }}-${{ github.run_id }}
+          restore-keys: |
+            ccache-${{ github.workflow  }}-${{ github.ref }}-
+            ccache-${{ github.workflow }}-
 
       - name: Set-up Manifest
         run: |
@@ -59,6 +68,13 @@ jobs:
           export MANIFEST_BRANCH=12.1
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
+          
+          # CCACHE Setup
+          export USE_CCACHE=1
+          export CCACHE_EXEC=/usr/bin/ccache
+          export CCACHE_DIR=/home/runner/.ccache
+          ccache -M 5G
+          ccache -z
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
           set +e
@@ -66,8 +82,11 @@ jobs:
           export ALLOW_MISSING_DEPENDENCIES=true
           set -e
           lunch omni_${DEVICE_NAME}-eng
-          make clean
+          
           mka adbd ${BUILD_TARGET}image
+          
+          echo "--- CCACHE Stats ---"
+          ccache -s
           
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
@@ -82,5 +101,4 @@ jobs:
             
             Device: Lava Blaze 5G
             Codename: LXX503
-            Recovery Image: OrangeFox-xx_A14-Unofficial-LXX503.img
-            Recovery Zip: OrangeFox-xx_A14-Unofficial-LXX503.zip
+            Commit: ${{ env.COMMIT_ID }}
