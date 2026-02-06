@@ -31,15 +31,6 @@ jobs:
           cd scripts
           sudo bash setup/android_build_env.sh
 
-      - name: Set-up ccache
-        uses: actions/cache@v5
-        with:
-          path: /home/runner/.ccache
-          key: ccache-${{ github.workflow }}-${{ github.ref }}-${{ github.run_id }}
-          restore-keys: |
-            ccache-${{ github.workflow  }}-${{ github.ref }}-
-            ccache-${{ github.workflow }}-
-
       - name: Set-up Manifest
         run: |
           export MANIFEST_BRANCH=12.1
@@ -62,6 +53,15 @@ jobs:
           git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH ./$DEVICE_PATH
           cd $DEVICE_PATH
           echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
+          
+      - name: Set-up ccache
+        uses: actions/cache@v5
+        with:
+          path: .ccache
+          key: ccache-${{ github.workflow }}-${{ github.ref }}-${{ github.run_id }}
+          restore-keys: |
+            ccache-${{ github.workflow  }}-${{ github.ref }}-
+            ccache-${{ github.workflow }}-
 
       - name: Building OrangeFox
         run: |
@@ -69,10 +69,13 @@ jobs:
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
           
-          # CCACHE Setup
           export USE_CCACHE=1
           export CCACHE_EXEC=/usr/bin/ccache
-          export CCACHE_DIR=/home/runner/.ccache
+          export CCACHE_DIR="${GITHUB_WORKSPACE}/.ccache"
+          
+          # Ensure the directory exists so ccache doesn't complain
+          mkdir -p "${CCACHE_DIR}"
+          
           ccache -M 5G
           ccache -z
 
