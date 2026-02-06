@@ -1,5 +1,8 @@
 DEVICE_PATH := device/lava/LXX503
 
+# Soong namespace
+PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)
+
 # Virtual A/B - Keep these for partition mounting logic
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
@@ -34,7 +37,6 @@ PRODUCT_PACKAGES += \
     create_pl_dev.recovery
 
 # Essential Crypto/FBE support 
-# Keymaster & Gatekeeper (required for FBE / recovery decrypt)
 PRODUCT_PACKAGES += \
     libkeymaster4 \
     libkeymaster41 \
@@ -49,5 +51,9 @@ PRODUCT_PACKAGES += \
     kmsetkey.beanpod \
     libSoftGatekeeper
 
+# Soong namespace
+PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)
+
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/fstab.mt6833:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.mt6833
+
