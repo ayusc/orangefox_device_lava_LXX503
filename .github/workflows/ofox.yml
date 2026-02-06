@@ -68,13 +68,13 @@ jobs:
           lunch omni_${DEVICE_NAME}-eng
           make clean
           mka adbd ${BUILD_TARGET}image
-          cp out/target/product/LXX503/boot.img out/target/product/LXX503/ofox.img
-
+          
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            OrangeFox/fox_12.1/out/target/product/LXX503/*
+            OrangeFox/fox_12.1/out/target/product/LXX503/*_LXX503.img
+            OrangeFox/fox_12.1/out/target/product/LXX503/*_LXX503.zip
           name: OrangeFox Recovery for Lava Blaze 5G (LXX503)
           tag_name: ${{ github.run_id }}
           body: |
@@ -82,5 +82,5 @@ jobs:
             
             Device: Lava Blaze 5G
             Codename: LXX503
-            Recovery Image: ofox.img
-            Recovery Zip: ofox.zip
+            Recovery Image: OrangeFox-xx_A14-Unofficial-LXX503.img
+            Recovery Zip: OrangeFox-xx_A14-Unofficial-LXX503.zip
