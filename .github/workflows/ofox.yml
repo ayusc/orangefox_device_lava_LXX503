@@ -73,7 +73,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            OrangeFox/fox_12.1/out/target/product/LXX503/*
+            OrangeFox/fox_12.1/out/target/product/LXX503/*-LXX503.img
+            OrangeFox/fox_12.1/out/target/product/LXX503/*-LXX503.zip
           name: OrangeFox Recovery for Lava Blaze 5G (LXX503)
           tag_name: ${{ github.run_id }}
           body: |
