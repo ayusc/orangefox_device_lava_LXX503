@@ -41,7 +41,3 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
     gatekeeper.default \
     kmsetkey.beanpod
-
-# Copy manifest (required for decryption + logo hang fix)
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/recovery/root/system/etc/vintf/manifest.xml:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/vintf/manifest.xml
