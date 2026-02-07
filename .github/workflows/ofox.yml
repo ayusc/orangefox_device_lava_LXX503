@@ -5,34 +5,28 @@ on:
 
 jobs:
   build:
-    name: Build Recovery
+    name: Build Recovery 
     runs-on: ubuntu-22.04
-
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     permissions:
       contents: write
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
-
+        uses: actions/checkout@v4
+              
       - name: Clean-up
         uses: rokibhasansagar/slimhub_actions@main
 
-      - name: Setup Swap
+      - name: Swap Space
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 24
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y aria2 ccache
-
       - name: Build Environment
         run: |
+          sudo apt install aria2 -y
           git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
           cd scripts
           sudo bash setup/android_build_env.sh
@@ -42,10 +36,8 @@ jobs:
           export MANIFEST_BRANCH=14.1
           mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
           cd ${GITHUB_WORKSPACE}/OrangeFox
-
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-
           git clone https://gitlab.com/OrangeFox/sync.git -b master
           cd sync
           ./orangefox_sync.sh --branch $MANIFEST_BRANCH --path ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
@@ -62,21 +54,21 @@ jobs:
           cd $DEVICE_PATH
           echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: Build OrangeFox
+      - name: Building OrangeFox
         run: |
           export MANIFEST_BRANCH=14.1
-          export FOX_BUILD_DEVICE=LXX503
+          export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
-          export ALLOW_MISSING_DEPENDENCIES=true
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
-
+          set +e
           source build/envsetup.sh
-
-          lunch omni_${FOX_BUILD_DEVICE}-a2pa-eng
+          export ALLOW_MISSING_DEPENDENCIES=true
+          set -e
+          lunch omni_${DEVICE_NAME}-a2pa-eng
           make clean
           mka adbd ${BUILD_TARGET}image
-
+          
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
@@ -86,8 +78,8 @@ jobs:
           name: OrangeFox Recovery for Lava Blaze 5G (LXX503)
           tag_name: ${{ github.run_id }}
           body: |
-            OrangeFox Recovery Build - Unofficial
-
+            OrangeFox Recovery Build - Unofficial 
+            
             Device: Lava Blaze 5G
             Codename: LXX503
             Recovery Image: OrangeFox-xx_A14-Unofficial-LXX503.img
