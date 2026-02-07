@@ -28,26 +28,30 @@ on post-fs
     symlink /dev/block/mapper/pl_a /dev/block/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
 
-    # [FIX] Create Keystore directories (Required for Keymaster 4.1+)
+    # [FIX] Create Keystore directories
     mkdir /data/misc/keystore 0770 keystore keystore
     mkdir /data/misc/gatekeeper 0770 system system
 
+    # [FIX] Set permissions (CRITICAL for automatic file pickup)
+    # If you rely on recovery/root copy, these are NOT executable by default.
+    chmod 0755 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
+    chmod 0755 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+
 # --------------------------------------------------------
-# [FIX] Decryption Services (Updated for Beanpod 4.1)
+# [FIX] Decryption Services
 # --------------------------------------------------------
 
-service keymaster-4-1 /system/bin/android.hardware.keymaster@4.1-service.beanpod
+# Updated path to match your folder structure: /vendor/bin/hw/
+service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     user root
     group root drmrpc
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     disabled
     seclabel u:r:recovery:s0
-    # CRITICAL: We declare BOTH 4.0 and 4.1 interfaces.
-    # The recovery is asking for 4.0 (see your logs), so this line maps the request to this binary.
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
 
-service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
