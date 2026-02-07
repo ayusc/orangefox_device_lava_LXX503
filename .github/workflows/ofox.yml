@@ -82,13 +82,14 @@ jobs:
       - name: Build OrangeFox
         run: |
           export MANIFEST_BRANCH=14.1
-          export DEVICE_NAME=LXX503
+          export FOX_BUILD_DEVICE=LXX503
           export BUILD_TARGET=boot
+          export LC_ALL="C"
+          export ALLOW_MISSING_DEPENDENCIES=true
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
 
           source build/envsetup.sh
-          export ALLOW_MISSING_DEPENDENCIES=true
 
           lunch omni_${DEVICE_NAME}-a2pa-eng
           make clean
