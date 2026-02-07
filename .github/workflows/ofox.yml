@@ -90,7 +90,7 @@ jobs:
 
           source build/envsetup.sh
 
-          lunch omni_${FOX_BUILD_DEVICE}-a2pa-eng
+          lunch omni_${FOX_BUILD_DEVICE}-eng
           make clean
           mka adbd ${BUILD_TARGET}image
 
