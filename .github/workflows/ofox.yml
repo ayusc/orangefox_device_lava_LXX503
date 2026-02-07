@@ -30,7 +30,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt update
           sudo apt install -y aria2 ccache
 
       - name: Configure ccache paths
