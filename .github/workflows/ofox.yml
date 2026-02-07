@@ -1,3 +1,4 @@
+
 name: OrangeFox Recovery Build
 
 on:
@@ -5,56 +6,28 @@ on:
 
 jobs:
   build:
-    name: Build Recovery
+    name: Build Recovery 
     runs-on: ubuntu-22.04
-
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
-
-    env:
-      USE_CCACHE: 1
-      LC_ALL: C
-      ALLOW_MISSING_DEPENDENCIES: true
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
+              
       - name: Clean-up
         uses: rokibhasansagar/slimhub_actions@main
 
-      - name: Setup Swap
+      - name: Swap Space
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 24
 
-      - name: Install dependencies
-        run: |
-          sudo apt install -y aria2 ccache
-
-      - name: Configure ccache paths
-        run: |
-          mkdir -p $GITHUB_WORKSPACE/.ccache/tmp
-          echo "CCACHE_DIR=$GITHUB_WORKSPACE/.ccache" >> $GITHUB_ENV
-          echo "CCACHE_TEMPDIR=$GITHUB_WORKSPACE/.ccache/tmp" >> $GITHUB_ENV
-
-      - name: Restore ccache
-        uses: actions/cache@v5
-        with:
-          path: ${{ github.workspace }}/.ccache
-          key: ccache-${{ runner.os }}-${{ github.ref }}
-          restore-keys: |
-            ccache-${{ runner.os }}-
-
-      - name: Initialize ccache
-        run: |
-          ccache -M 15G
-          ccache -o compression=true
-          ccache -z
-          ccache -s
-
       - name: Build Environment
         run: |
+          sudo apt install aria2 -y
           git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
           cd scripts
           sudo bash setup/android_build_env.sh
@@ -64,15 +37,11 @@ jobs:
           export MANIFEST_BRANCH=12.1
           mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
           cd ${GITHUB_WORKSPACE}/OrangeFox
-
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-
           git clone https://gitlab.com/OrangeFox/sync.git -b master
           cd sync
-          ./orangefox_sync.sh \
-            --branch $MANIFEST_BRANCH \
-            --path ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
+          ./orangefox_sync.sh --branch $MANIFEST_BRANCH --path ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
 
       - name: Clone Device Tree
         run: |
@@ -82,25 +51,25 @@ jobs:
           export DEVICE_PATH=device/lava/LXX503
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
-          git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH $DEVICE_PATH
-
+          git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH ./$DEVICE_PATH
           cd $DEVICE_PATH
           echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: Build OrangeFox
+      - name: Building OrangeFox
         run: |
           export MANIFEST_BRANCH=12.1
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
+          set +e
           source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          set -e
           lunch omni_${DEVICE_NAME}-eng
           make clean
           mka adbd ${BUILD_TARGET}image
-
-          ccache -s
-
+          
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
@@ -110,8 +79,8 @@ jobs:
           name: OrangeFox Recovery for Lava Blaze 5G (LXX503)
           tag_name: ${{ github.run_id }}
           body: |
-            OrangeFox Recovery Build - Unofficial
-
+            OrangeFox Recovery Build - Unofficial 
+            
             Device: Lava Blaze 5G
             Codename: LXX503
             Recovery Image: OrangeFox-xx_A14-Unofficial-LXX503.img
