@@ -10,8 +10,6 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      USE_CCACHE: 1
-      CCACHE_EXEC: /usr/bin/ccache
 
     permissions:
       contents: write
