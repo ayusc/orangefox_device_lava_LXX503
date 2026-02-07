@@ -2,4 +2,4 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/omni_LXX503.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_LXX503-ap2a-eng
+    omni_LXX503-eng
