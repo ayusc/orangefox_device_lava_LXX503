@@ -86,6 +86,9 @@ PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 PLATFORM_SECURITY_PATCH := 2099-12-31
 BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+#https://source.android.com/docs/core/architecture/vintf/dm (race condition fix)
+DEVICE_MANIFEST_FILE := device/lava/LXX503/recovery/root/vendor/etc/vintf/manifest.xml
+PRODUCT_ENFORCE_VINTF_MANIFEST := true
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
