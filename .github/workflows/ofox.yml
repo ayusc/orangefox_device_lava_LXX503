@@ -33,21 +33,6 @@ jobs:
           sudo apt update
           sudo apt install -y aria2 ccache
 
-      - name: Restore ccache
-        uses: actions/cache@v5
-        with:
-          path: ~/.ccache
-          key: ccache-${{ runner.os }}-${{ github.ref }}
-          restore-keys: |
-            ccache-${{ runner.os }}-
-
-      - name: Configure ccache
-        run: |
-          ccache -M 50G
-          ccache -o compression=true
-          ccache -z
-          ccache -s
-
       - name: Build Environment
         run: |
           git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
@@ -84,7 +69,6 @@ jobs:
           export MANIFEST_BRANCH=14.1
           export FOX_BUILD_DEVICE=LXX503
           export BUILD_TARGET=boot
-          export LC_ALL="C"
           export ALLOW_MISSING_DEPENDENCIES=true
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
@@ -94,8 +78,6 @@ jobs:
           lunch omni_${FOX_BUILD_DEVICE}-a2pa-eng
           make clean
           mka adbd ${BUILD_TARGET}image
-
-          ccache -s
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
