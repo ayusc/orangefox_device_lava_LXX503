@@ -8,7 +8,6 @@
             <instance>default</instance>
         </interface>
     </hal>
-
     <hal format="hidl">
         <name>android.hardware.gatekeeper</name>
         <transport>hwbinder</transport>
@@ -18,7 +17,6 @@
             <instance>default</instance>
         </interface>
     </hal>
-
     <hal format="aidl">
         <name>android.security.compat</name>
         <version>1</version>
@@ -61,5 +59,13 @@
     <hal format="native">
         <name>netutils-wrapper</name>
         <version>1.0</version>
+    </hal>
+    <hal format="aidl">
+        <name>android.system.keystore2</name>
+        <version>3</version>
+        <interface>
+            <name>IKeystoreService</name>
+            <instance>default</instance>
+        </interface>
     </hal>
 </manifest>
