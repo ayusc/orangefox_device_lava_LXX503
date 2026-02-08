@@ -1,23 +1,22 @@
 on init
+    # Force SELinux to permissive to fix the "avc: denied" errors in your log
+    write /sys/fs/selinux/enforce 0
     setprop sys.usb.configfs 1
     setprop sys.usb.controller "musb-hdrc"
     setprop sys.usb.ffs.aio_compat 1
 
 on fs && property:ro.debuggable=0
-    # distinguish USB shoulde connect or not, i.e. CDP vs SDP
     write /sys/class/udc/musb-hdrc/device/cmode 2
-    # set charging free due to it wait for USB activation
     start adbd
 
 on post-fs
-    # Support A/B feature for EMMC and UFS boot region
     wait /dev/block/mmcblk0boot0 2
     symlink /dev/block/sda /dev/block/mmcblk0boot0
     symlink /dev/block/sdb /dev/block/mmcblk0boot1
     symlink /dev/block/mmcblk0boot0 /dev/block/by-name/preloader_a
     symlink /dev/block/mmcblk0boot1 /dev/block/by-name/preloader_b
-
-    # Support A/B feature for combo emmc and ufs OTA update
+    
+    # Symlinks for updates
     symlink /dev/block/by-name/preloader_a /dev/block/by-name/preloader_emmc_a
     symlink /dev/block/by-name/preloader_b /dev/block/by-name/preloader_emmc_b
     symlink /dev/block/by-name/preloader_a /dev/block/by-name/preloader_ufs_a
@@ -28,20 +27,28 @@ on post-fs
     symlink /dev/block/mapper/pl_a /dev/block/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
 
-    # [FIX] Create Keystore directories
+    # Create directories
     mkdir /data/misc/keystore 0770 keystore keystore
     mkdir /data/misc/gatekeeper 0770 system system
 
-    # [FIX] Set permissions (CRITICAL for automatic file pickup)
-    # If you rely on recovery/root copy, these are NOT executable by default.
+    # Permissions
     chmod 0755 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     chmod 0755 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
 
 # --------------------------------------------------------
-# [FIX] Decryption Services
+# [FIX] Keystore2 Service (REQUIRED FOR ANDROID 14)
+# --------------------------------------------------------
+service keystore2 /system/bin/keystore2 /data/misc/keystore
+    class main
+    user root
+    group root drmrpc readproc
+    disabled
+    seclabel u:r:recovery:s0
+
+# --------------------------------------------------------
+# [FIX] Vendor Services
 # --------------------------------------------------------
 
-# Updated path to match your folder structure: /vendor/bin/hw/
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     user root
     group root drmrpc
@@ -60,17 +67,20 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
 
 # --------------------------------------------------------
-# [FIX] Decryption Triggers
+# [FIX] Triggers
 # --------------------------------------------------------
 
 on property:hwservicemanager.ready=true
     start keymaster-4-1
     start gatekeeper-1-0
+    start keystore2
 
 on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     start keymaster-4-1
     start gatekeeper-1-0
+    start keystore2
 
 on property:vendor.sys.listeners.registered=true
     start keymaster-4-1
     start gatekeeper-1-0
+    start keystore2
