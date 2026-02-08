@@ -30,7 +30,6 @@ service keystore2 /system/bin/keystore2 /data/misc/keystore
     class early_hal
     user keystore
     group keystore readproc log
-    disabled
     seclabel u:r:recovery:s0
     # THIS LINE BELOW FIXES the "Could not find aidl/android.system.keystore2" error
     interface aidl android.system.keystore2.IKeystoreService/default
@@ -42,7 +41,6 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     user root
     group root drmrpc
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
-    disabled
     seclabel u:r:recovery:s0
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
@@ -51,7 +49,6 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
-    disabled
     seclabel u:r:recovery:s0
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
 
