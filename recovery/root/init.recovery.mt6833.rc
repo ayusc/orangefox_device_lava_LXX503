@@ -28,11 +28,13 @@ on post-fs
 # --------------------------------------------------------
 service keystore2 /system/bin/keystore2 /data/misc/keystore
     class early_hal
-    user keystore
-    group keystore readproc log
+    user root
+    group root drmrpc readproc log
     seclabel u:r:recovery:s0
-    # THIS LINE BELOW FIXES the "Could not find aidl/android.system.keystore2" error
+    # Fixes "Control message: Could not find aidl/android.system.keystore2"
     interface aidl android.system.keystore2.IKeystoreService/default
+    # Fixes "avc: denied { add } name=android.security.compat"
+    interface aidl android.security.compat.IKeystoreCompatService/default
 
 # --------------------------------------------------------
 # [FIX] Keymaster 4.1 Service
