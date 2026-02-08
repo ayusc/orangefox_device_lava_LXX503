@@ -2,7 +2,7 @@
     <hal format="hidl">
         <name>android.hardware.keymaster</name>
         <transport>hwbinder</transport>
-        <version>4.0</version>
+        <version>4.1</version>
         <interface>
             <name>IKeymasterDevice</name>
             <instance>default</instance>
@@ -15,6 +15,15 @@
         <version>1.0</version>
         <interface>
             <name>IGatekeeper</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+
+    <hal format="aidl">
+        <name>android.security.compat</name>
+        <version>1</version>
+        <interface>
+            <name>IKeystoreCompatService</name>
             <instance>default</instance>
         </interface>
     </hal>
