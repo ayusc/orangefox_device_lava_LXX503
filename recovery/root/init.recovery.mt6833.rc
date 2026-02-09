@@ -1,5 +1,5 @@
 on init
-    # Force SELinux to permissive immediately
+    # Force SELinux to permissive
     write /sys/fs/selinux/enforce 0
     
     setprop sys.usb.configfs 1
@@ -7,14 +7,24 @@ on init
     setprop sys.usb.ffs.aio_compat 1
 
 on post-fs
-    # Support A/B feature symlinks
     wait /dev/block/mmcblk0boot0 2
     symlink /dev/block/sda /dev/block/mmcblk0boot0
     symlink /dev/block/sdb /dev/block/mmcblk0boot1
     symlink /dev/block/mmcblk0boot0 /dev/block/by-name/preloader_a
     symlink /dev/block/mmcblk0boot1 /dev/block/by-name/preloader_b
 
-    # Keystore directories
+    # Symlinks for OTA
+    symlink /dev/block/by-name/preloader_a /dev/block/by-name/preloader_emmc_a
+    symlink /dev/block/by-name/preloader_b /dev/block/by-name/preloader_emmc_b
+    symlink /dev/block/by-name/preloader_a /dev/block/by-name/preloader_ufs_a
+    symlink /dev/block/by-name/preloader_b /dev/block/by-name/preloader_ufs_b
+
+    exec u:r:update_engine:s0 root root -- /system/bin/mtk_plpath_utils
+
+    symlink /dev/block/mapper/pl_a /dev/block/by-name/preloader_raw_a
+    symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
+
+    # Create directories
     mkdir /data/misc/keystore 0770 keystore keystore
     mkdir /data/misc/gatekeeper 0770 system system
 
@@ -24,30 +34,34 @@ on post-fs
     chmod 0755 /system/bin/keystore2
 
 # --------------------------------------------------------
-# [FIX] Keystore2 AIDL Service
+# Keystore2 (Android 14)
 # --------------------------------------------------------
 service keystore2 /system/bin/keystore2 /data/misc/keystore
     class early_hal
     user root
     group root drmrpc readproc log
     seclabel u:r:recovery:s0
-    # Fixes "Control message: Could not find aidl/android.system.keystore2"
+    # We removed the 'disabled' line so it force-starts
+    # Defining interfaces here helps init know what this service provides
     interface aidl android.system.keystore2.IKeystoreService/default
-    # Fixes "avc: denied { add } name=android.security.compat"
     interface aidl android.security.compat.IKeystoreCompatService/default
 
 # --------------------------------------------------------
-# [FIX] Keymaster 4.1 Service
+# Vendor HALs
 # --------------------------------------------------------
+
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
+    class early_hal
     user root
     group root drmrpc
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     seclabel u:r:recovery:s0
-    interface android.hardware.keymaster@4.0::IKeymasterDevice default
+    # [FIX] Only declare 4.1 here to match your Manifest exactly. 
+    # This prevents the "Race Detected" / "Manifest mismatch" errors.
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+    class early_hal
     user root
     group root
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
@@ -57,7 +71,10 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
 # --------------------------------------------------------
 # Triggers
 # --------------------------------------------------------
+# Added 'class_start' to ensure everything fires if manual start fails
+
 on property:hwservicemanager.ready=true
+    class_start early_hal
     start keymaster-4-1
     start gatekeeper-1-0
     start keystore2
