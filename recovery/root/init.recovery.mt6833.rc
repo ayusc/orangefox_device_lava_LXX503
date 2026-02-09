@@ -56,8 +56,8 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     group root drmrpc
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     seclabel u:r:recovery:s0
-    # [FIX] Only declare 4.1 here to match your Manifest exactly. 
-    # This prevents the "Race Detected" / "Manifest mismatch" errors.
+    # [FIX] Declare BOTH versions so it answers to everyone
+    interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
