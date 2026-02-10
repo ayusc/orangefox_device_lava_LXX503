@@ -30,10 +30,12 @@ PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
 # Minimal Boot Control HAL (Essential for A/B switching)
 PRODUCT_PACKAGES += \
+    android.hardware.boot@1.2-mtkimpl \
     android.hardware.boot@1.2-mtkimpl.recovery \
     bootctrl.mt6833 \
     libgptutils \
     checkpoint_gc \
+    create_pl_dev \
     create_pl_dev.recovery
 
 # Essential Crypto/FBE support 
@@ -50,6 +52,12 @@ PRODUCT_PACKAGES += \
     gatekeeper.default \
     kmsetkey.beanpod \
     libSoftGatekeeper
+
+PRODUCT_PACKAGES += \
+    update_engine \
+    update_engine_sideload \
+    update_verifier \
+    otapreopt_script
 
 # Otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
