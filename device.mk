@@ -42,11 +42,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 # Enable Fuse Passthrough for performance
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
-# Health
-PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service
-
 # Minimal Boot Control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-mtkimpl \
