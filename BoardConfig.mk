@@ -19,7 +19,7 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 
 # APEX
-OVERRIDE_TARGET_FLATTEN_APEX := true
+#OVERRIDE_TARGET_FLATTEN_APEX := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := mt6833
@@ -127,7 +127,7 @@ OF_FORCE_PREBUILT_KERNEL := 1
 #OF_FL_PATH1 := /sys/class/flashlight_core/flashlight/flashlight_torch
 
 # Filesystem Feature
-TARGET_USES_MKE2FS := true
+#TARGET_USES_MKE2FS := true
 
 # TWRP features
 TW_THEME := portrait_hdpi
@@ -143,5 +143,3 @@ TW_PREPARE_DATA_MEDIA_EARLY := true
 #TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
 #TW_CUSTOM_BRIGHTNESS_PATH := "/sys/class/leds/flashlight/brightness"
 TW_NO_FASTBOOT_BOOT := true
-TW_DEVICE_VERSION := LXX503-A14
-
