@@ -12,7 +12,7 @@ ENABLE_VIRTUAL_AB := true
 PRODUCT_FULL_TREBLE_OVERRIDE := true 
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
 
-# Define A/B partitions so recovery knows what to slot-switch
+# Define A/B partitions
 AB_OTA_PARTITIONS += \
     boot \
     vendor_boot \
@@ -24,45 +24,23 @@ AB_OTA_PARTITIONS += \
     product \
     vendor 
     
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/mtk_plpath_utils \
-    FILESYSTEM_TYPE_system=erofs \
-    POSTINSTALL_OPTIONAL_system=true
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_vendor=true \
-    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
-    FILESYSTEM_TYPE_vendor=erofs \
-    POSTINSTALL_OPTIONAL_vendor=true
-
 # Configure emulated_storage.mk (Required for /sdcard)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 # Enable Fuse Passthrough for performance
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
-# Minimal Boot Control HAL
+# Boot control (recovery only)
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-mtkimpl \
     android.hardware.boot@1.2-mtkimpl.recovery \
     bootctrl.mt6833 \
-    checkpoint_gc \
-    create_pl_dev \
     create_pl_dev.recovery
 
-# Essential Crypto/FBE support 
+# (Optional) sideload only
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0 \
-    android.hardware.keymaster@4.0 \
-    android.hardware.keymaster@4.1 
-
-PRODUCT_PACKAGES += \
-    update_engine \
-    update_engine_sideload \
-    update_verifier \
-    otapreopt_script
+    update_engine_sideload
 
 # Otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/LXX503_releasekey
+
