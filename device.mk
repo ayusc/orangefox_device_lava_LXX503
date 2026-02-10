@@ -9,8 +9,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 AB_OTA_UPDATER := true
 ENABLE_VIRTUAL_AB := true
-PRODUCT_FULL_TREBLE_OVERRIDE := true 
-PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
 
 # Define A/B partitions
 AB_OTA_PARTITIONS += \
@@ -21,8 +19,7 @@ AB_OTA_PARTITIONS += \
     vbmeta_vendor \
     system \
     system_ext \
-    product \
-    vendor 
+    product 
     
 # Configure emulated_storage.mk (Required for /sdcard)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
