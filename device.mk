@@ -22,6 +22,18 @@ AB_OTA_PARTITIONS += \
     system_ext \
     product \
     vendor 
+    
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_system=true \
+    POSTINSTALL_PATH_system=system/bin/mtk_plpath_utils \
+    FILESYSTEM_TYPE_system=erofs \
+    POSTINSTALL_OPTIONAL_system=true
+
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_vendor=true \
+    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+    FILESYSTEM_TYPE_vendor=erofs \
+    POSTINSTALL_OPTIONAL_vendor=true
 
 # Configure emulated_storage.mk (Required for /sdcard)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
@@ -29,30 +41,24 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 # Enable Fuse Passthrough for performance
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
-# Minimal Boot Control HAL (Essential for A/B switching)
+# Health
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.1-impl \
+    android.hardware.health@2.1-service
+
+# Minimal Boot Control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-mtkimpl \
     android.hardware.boot@1.2-mtkimpl.recovery \
     bootctrl.mt6833 \
-    libgptutils \
     checkpoint_gc \
     create_pl_dev \
     create_pl_dev.recovery
 
 # Essential Crypto/FBE support 
 PRODUCT_PACKAGES += \
-    libkeymaster4 \
-    libkeymaster41 \
-    libkeymaster4support \
-    libkeymaster_messages \
     android.hardware.keymaster@4.0 \
-    android.hardware.keymaster@4.1 \
-    vendor.mediatek.hardware.keymaster_attestation@1.0 \
-    vendor.mediatek.hardware.keymaster_attestation@1.1 \
-    android.hardware.gatekeeper@1.0-impl \
-    gatekeeper.default \
-    kmsetkey.beanpod \
-    libSoftGatekeeper
+    android.hardware.keymaster@4.1 
 
 PRODUCT_PACKAGES += \
     update_engine \
