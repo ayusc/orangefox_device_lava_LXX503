@@ -9,6 +9,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 AB_OTA_UPDATER := true
 ENABLE_VIRTUAL_AB := true
+PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 # Define A/B partitions so recovery knows what to slot-switch
 AB_OTA_PARTITIONS += \
