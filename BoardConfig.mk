@@ -121,8 +121,6 @@ OF_DEFAULT_KEYMASTER_VERSION := 4.1
 
 # Filesystem Feature
 TARGET_USES_MKE2FS := true
-TW_INCLUDE_FUSE_EXFAT := true
-TW_ENABLE_FS_COMPRESSION := false
 TW_NO_HAPTICS := true
 
 # TWRP features
@@ -133,7 +131,7 @@ TW_EXCLUDE_TWRPAPP := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_DEFAULT_BRIGHTNESS := 1024
 TW_MAX_BRIGHTNESS := 4095
-TW_HAS_MTP := true
+#TW_HAS_MTP := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
 #TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
