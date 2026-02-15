@@ -1,6 +1,4 @@
 export FOX_VIRTUAL_AB_DEVICE=1
-export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/mapper/system"
-export FOX_RECOVERY_VENDOR_PARTITION="/dev/block/mapper/vendor"
 export FOX_TARGET_DEVICES=LXX503
 export TARGET_DEVICE_ALT=LXX503
 export FOX_DELETE_AROMAFM=1
