@@ -36,6 +36,21 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     create_pl_dev.recovery
 
+# Essential Crypto/FBE support 
+PRODUCT_PACKAGES += \
+    libkeymaster4 \
+    libkeymaster41 \
+    libkeymaster4support \
+    libkeymaster_messages \
+    android.hardware.keymaster@4.0 \
+    android.hardware.keymaster@4.1 \
+    vendor.mediatek.hardware.keymaster_attestation@1.0 \
+    vendor.mediatek.hardware.keymaster_attestation@1.1 \
+    android.hardware.gatekeeper@1.0-impl \
+    gatekeeper.default \
+    kmsetkey.beanpod \
+    libSoftGatekeeper
+
 # Otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/LXX503_releasekey
