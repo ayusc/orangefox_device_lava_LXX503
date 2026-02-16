@@ -1,0 +1,80 @@
+
+name: TWRP Recovery Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Recovery 
+    runs-on: ubuntu-22.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+              
+      - name: Clean-up
+        uses: rokibhasansagar/slimhub_actions@main
+
+      - name: Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 24
+
+      - name: Build Environment
+        run: |
+          sudo apt install aria2 -y
+
+      - name: Set-up Manifest
+        run: |
+          mkdir -p ${GITHUB_WORKSPACE}/twrp
+          cd ${GITHUB_WORKSPACE}/twrp
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-14
+          repo sync -c --no-tags --no-clone-bundle -j$(nproc)
+
+      - name: Clone Device Tree
+        run: |
+          export DEVICE_TREE=https://github.com/ayusc/orangefox_device_lava_LXX503
+          export DEVICE_TREE_BRANCH=main
+          export DEVICE_PATH=device/lava/LXX503
+      
+          cd ${GITHUB_WORKSPACE}/twrp
+          git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH ./$DEVICE_PATH
+          cd $DEVICE_PATH
+          echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Building twrp
+        run: |
+          export DEVICE_NAME=LXX503
+          export BUILD_TARGET=boot
+
+          cd ${GITHUB_WORKSPACE}/twrp
+          set +e
+          source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          set -e
+          lunch omni_${DEVICE_NAME}-eng
+          make clean
+          mka adbd ${BUILD_TARGET}image
+          
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            twrp/out/target/product/LXX503/*.img
+            twrp/out/target/product/LXX503/*.zip
+          name: TWRP Recovery for Lava Blaze 5G (LXX503)
+          tag_name: ${{ github.run_id }}
+          body: |
+            TWRP Recovery Build - Unofficial 
+            
+            Device: Lava Blaze 5G
+            Codename: LXX503
+            Recovery Image: twrp-xx_A14-Unofficial-LXX503.img
+            Recovery Zip: twrp-xx_A14-Unofficial-LXX503.zip
