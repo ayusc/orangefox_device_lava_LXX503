@@ -26,8 +26,6 @@ jobs:
 
       - name: Build Environment
         run: |
-          sudo apt update
-          sudo apt install -y aria2 curl
           sudo curl https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo
           sudo chmod a+x /usr/local/bin/repo
           repo --version
@@ -38,13 +36,13 @@ jobs:
           cd ${GITHUB_WORKSPACE}/twrp
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-14
+          repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-14.1
           repo sync -c --no-tags --no-clone-bundle -j$(nproc)
 
       - name: Clone Device Tree
         run: |
           export DEVICE_TREE=https://github.com/ayusc/orangefox_device_lava_LXX503
-          export DEVICE_TREE_BRANCH=main
+          export DEVICE_TREE_BRANCH=test
           export DEVICE_PATH=device/lava/LXX503
       
           cd ${GITHUB_WORKSPACE}/twrp
@@ -62,7 +60,7 @@ jobs:
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
           set -e
-          lunch omni_${DEVICE_NAME}-eng
+          lunch omni_${DEVICE_NAME}-ap2a-eng
           make clean
           mka adbd ${BUILD_TARGET}image
           
