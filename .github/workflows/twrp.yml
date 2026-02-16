@@ -26,11 +26,11 @@ jobs:
 
       - name: Build Environment
         run: |
-          sudo apt install aria2 -y
-          mkdir -p ~/bin
-          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-          chmod a+x ~/bin/repo
-          echo "$HOME/bin" >> $GITHUB_PATH
+          sudo apt update
+          sudo apt install -y aria2 curl
+          sudo curl https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo
+          sudo chmod a+x /usr/local/bin/repo
+          repo --version
 
       - name: Set-up Manifest
         run: |
