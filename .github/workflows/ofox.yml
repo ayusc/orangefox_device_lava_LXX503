@@ -43,11 +43,9 @@ jobs:
 
       - name: Clone Device Tree
         run: |
-          export MANIFEST_BRANCH=12.1
           export DEVICE_TREE=https://github.com/ayusc/orangefox_device_lava_LXX503
           export DEVICE_TREE_BRANCH=main
           export DEVICE_PATH=device/lava/LXX503
-
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
           git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH ./$DEVICE_PATH
           cd $DEVICE_PATH
@@ -55,7 +53,6 @@ jobs:
 
       - name: Building OrangeFox
         run: |
-          export MANIFEST_BRANCH=12.1
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
 
