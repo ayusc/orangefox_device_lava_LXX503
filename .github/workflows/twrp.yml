@@ -1,4 +1,3 @@
-
 name: TWRP Recovery Build
 
 on:
@@ -28,6 +27,10 @@ jobs:
       - name: Build Environment
         run: |
           sudo apt install aria2 -y
+          mkdir -p ~/bin
+          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+          chmod a+x ~/bin/repo
+          echo "$HOME/bin" >> $GITHUB_PATH
 
       - name: Set-up Manifest
         run: |
