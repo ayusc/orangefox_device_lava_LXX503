@@ -51,6 +51,10 @@ PRODUCT_PACKAGES += \
     kmsetkey.beanpod \
     libSoftGatekeeper
 
+# Keystore2
+PRODUCT_PACKAGES += \
+    android.system.keystore2 \
+
 # Otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/LXX503_releasekey
