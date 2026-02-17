@@ -19,7 +19,7 @@ Steps:
 1. First of all the bootloader needs to be unlocked (since you are here I assume you already have done it)
 2. Hold Vol UP + Power Key it open open a menu with 3 options (select Fastboot)
 3. Once in fastboot enter the command `fastboot flash boot twrp.img` or `fastboot flash boot ofox.img` (Depending on whether you want TWRP or Orangefox)
-(Note: On this device booting the image directly isn't supported so we have to directly flash it, if anything goes wrong flash back the stock boot.img and report an issue)
+<br>**(On this device booting the image directly isn't supported so we have to directly flash it, if anything goes wrong flash back the stock boot.img and report an issue)**
 4. Enter `fastboot reboot recovery` to enter into the newly flashed recovery.
 5. After your work is done, reboot to system.
 6. Enjoy :)
