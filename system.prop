@@ -13,6 +13,8 @@ ro.crypto.volume.options=::v2
 # MTK
 ro.mediatek.platform=MT6833
 ro.vendor.mtk_trustonic_tee_support=1
+ro.vendor.mtk_tee_gp_support=1
+ro.vendor.mtk_microtrust_tee_support=1
 
 # USB
 ro.sys.usb.bicr=no
