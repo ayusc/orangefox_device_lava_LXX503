@@ -13,8 +13,19 @@
 
 Steps:
 
+> [!NOTE]
+> You must have a backup of the stock boot.img before proceeding !
+
+1. First of all the bootloader needs to be unlocked (since you are here I assume you already have done it)
+2. Hold Vol UP + Power Key it open open a menu with 3 options (select Fastboot)
+3. Once in fastboot enter the command `fastboot flash boot twrp.img` or `fastboot flash boot ofox.img` (Depending on whether you want TWRP or Orangefox)
+(Note: On this device booting the image directly isn't supported so we have to directly flash it, if anything goes wrong flash back the stock boot.img and report an issue)
+4. Enter `fastboot reboot recovery` to enter into the newly flashed recovery.
+5. After your work is done, reboot to system.
+6. Enjoy :)
+
 That's it! Orangefox should now be successfully installed on your device. It successfully replaced the stock recovery on the device.
-Now to access the recovery press volume up+ power keys together and toggle the recovery option.
+Now to access the recovery anytime press Vol UP + Power Key together and toggle the recovery option.
 
 ![LXX503](https://fdn2.gsmarena.com/vv/pics/lava/lava-blaze-5g-01.jpg)
 
