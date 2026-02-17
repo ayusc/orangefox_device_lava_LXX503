@@ -1,26 +1,23 @@
-# Boot partitions (A/B)
-/boot             emmc    /dev/block/by-name/boot_a      flags=slotselect
-/vendor_boot      emmc    /dev/block/by-name/vendor_boot_a  flags=slotselect
+# Boot 
+/boot              emmc    /dev/block/by-name/boot      flags=slotselect
+/vendor_boot       emmc    /dev/block/by-name/vendor_boot  flags=slotselect
 
-# AVB
-/vbmeta           emmc    /dev/block/by-name/vbmeta_a         flags=slotselect
-/vbmeta_system    emmc    /dev/block/by-name/vbmeta_system_a  flags=slotselect
-/vbmeta_vendor    emmc    /dev/block/by-name/vbmeta_vendor_a  flags=slotselect
+# AVB 
+/vbmeta            emmc    /dev/block/by-name/vbmeta         flags=slotselect
+/vbmeta_system     emmc    /dev/block/by-name/vbmeta_system  flags=slotselect
+/vbmeta_vendor     emmc    /dev/block/by-name/vbmeta_vendor  flags=slotselect
 
-# Metadata (FBE)
-/metadata         ext4    /dev/block/by-name/metadata
+# Metadata (required for FBE)
+/metadata          ext4    /dev/block/by-name/metadata
 
 # Data (F2FS, encrypted)
-/data             f2fs    /dev/block/by-name/userdata     flags=display="Data";encryptable=footer
+/data              f2fs    /dev/block/by-name/userdata     flags=display="Data";encryptable=footer
 
 # Super partition (dynamic)
-/super            emmc    /dev/block/by-name/super
+/super             emmc    /dev/block/by-name/super
 
 # Logical partitions inside super
-/system           ext4    system
-/system_ext       ext4    system_ext
-/vendor           ext4    vendor
-/product          ext4    product
-/odm              ext4    odm
-/vendor_dlkm      ext4    vendor_dlkm
-/odm_dlkm         ext4    odm_dlkm
+/system            ext4    system
+/system_ext        ext4    system_ext
+/vendor            ext4    vendor
+/product           ext4    product
