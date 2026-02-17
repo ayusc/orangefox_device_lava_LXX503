@@ -36,6 +36,7 @@ jobs:
 
       - name: Configure ccache
         run: |
+          sudo apt install ccache -y
           ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
           ccache -M 10G     
           ccache -z         
