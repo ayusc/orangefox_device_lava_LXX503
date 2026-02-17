@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       clean_ccache:
-        description: 'Delete ccache before build? (yes/no)'
-        required: false
-        default: 'no'
+        description: "Delete ccache before build?"
+        required: true
+        type: choice
+        default: "no"
+        options:
+          - "no"
+          - "yes"
 
 jobs:
   build:
