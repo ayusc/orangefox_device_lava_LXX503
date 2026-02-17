@@ -2,6 +2,11 @@ name: TWRP Recovery Build
 
 on:
   workflow_dispatch:
+    inputs:
+      clean_ccache:
+        description: 'Delete ccache before build? (yes/no)'
+        required: false
+        default: 'no'
 
 jobs:
   build:
@@ -9,8 +14,8 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CCACHE_DIR: ${{ github.workspace }}/.ccache
-      CCACHE_EXEC: /usr/bin/ccache
+      CCACHE_DIR: /tmp/ccache
+      CCACHE_EXEC: /usr/bin/ccache  
     permissions:
       contents: write
 
@@ -25,20 +30,32 @@ jobs:
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 16
+
+      - name: Install ccache
+        run: |
+          sudo apt install -y ccache 
           
-      - name: Setup ccache
+      - name: Clean ccache (if requested)
+        if: github.event.inputs.clean_ccache == 'yes'
+        run: |
+          rm -rf ${{ env.CCACHE_DIR }}
+          echo "ccache cleared"
+          
+      - name: Setup ccache 
         uses: actions/cache@v5
         with:
           path: ${{ env.CCACHE_DIR }}
-          key: ${{ runner.os }}-ccache-${{ github.run_id }}
+          key: ccache-${{ runner.os }}
           restore-keys: |
-            ${{ runner.os }}-ccache-
+            ccache-${{ runner.os }}-
 
       - name: Configure ccache
         run: |
-          sudo apt install ccache -y
+          mkdir -p ${{ env.CCACHE_DIR }}
+          chmod 777 ${{ env.CCACHE_DIR }}
           ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
-          ccache -M 10G     
+          ccache --set-config=temporary_dir=/tmp/ccache-tmp
+          ccache -M 15G     
           ccache -z         
           ccache -s
 
@@ -73,14 +90,10 @@ jobs:
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
           cd ${GITHUB_WORKSPACE}/twrp
-          set +e
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
           export USE_CCACHE=1
-          export CCACHE_EXEC=/usr/bin/ccache
-          set -e
           lunch omni_${DEVICE_NAME}-eng
-          make clean
           mka adbd ${BUILD_TARGET}image
           mv out/target/product/${DEVICE_NAME}/boot.img out/target/product/${DEVICE_NAME}/twrp.img
 
