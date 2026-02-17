@@ -67,7 +67,7 @@ jobs:
           cd $DEVICE_PATH
           echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: Building TWRP (with ccache)
+      - name: Building TWRP
         run: |
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
