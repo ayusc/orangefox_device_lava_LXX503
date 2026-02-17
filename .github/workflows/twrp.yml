@@ -63,13 +63,14 @@ jobs:
           lunch omni_${DEVICE_NAME}-eng
           make clean
           mka adbd ${BUILD_TARGET}image
+          mv out/target/product/LXX503/boot.img out/target/product/LXX503/twrp.img
           
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            twrp/out/target/product/LXX503/*.img
-            twrp/out/target/product/LXX503/*.zip
+            twrp/out/target/product/LXX503/twrp.img
+            twrp/out/target/product/LXX503/twrp.zip
           name: TWRP Recovery for Lava Blaze 5G (LXX503)
           tag_name: ${{ github.run_id }}
           body: |
@@ -77,5 +78,5 @@ jobs:
             
             Device: Lava Blaze 5G
             Codename: LXX503
-            Recovery Image: twrp-xx_A14-Unofficial-LXX503.img
-            Recovery Zip: twrp-xx_A14-Unofficial-LXX503.zip
+            Recovery Image: twrp.img
+            Recovery Zip: twrp.zip
