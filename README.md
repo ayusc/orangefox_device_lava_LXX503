@@ -21,7 +21,7 @@ Steps:
 3. Once in fastboot enter the command `fastboot flash boot twrp.img` or `fastboot flash boot ofox.img` (Depending on whether you want TWRP or Orangefox)
 <br>**(On this device booting the image directly isn't supported so we have to directly flash it, if anything goes wrong flash back the stock boot.img and report an issue)**
 4. Enter `fastboot reboot recovery` to enter into the newly flashed recovery.
-5. After your work is done, reboot to system.
+5. After your work is done, reboot to System from TWRP.
 6. Enjoy :)
 
 That's it! Orangefox should now be successfully installed on your device. It successfully replaced the stock recovery on the device.
