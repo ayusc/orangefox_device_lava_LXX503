@@ -7,13 +7,13 @@
 /vbmeta_system     emmc    /dev/block/by-name/vbmeta_system  flags=slotselect
 /vbmeta_vendor     emmc    /dev/block/by-name/vbmeta_vendor  flags=slotselect
 
-# Metadata (required for FBE)
+# Metadata 
 /metadata          ext4    /dev/block/by-name/metadata
 
 # Data (F2FS, encrypted)
 /data              f2fs    /dev/block/by-name/userdata     flags=display="Data";encryptable=footer
 
-# Super partition (dynamic)
+# Super partition
 /super             emmc    /dev/block/by-name/super
 
 # Logical partitions inside super

@@ -1,18 +1,18 @@
-# Boot (A/B)
+# Boot 
 /boot            emmc   /dev/block/by-name/boot            flags=display="Boot";backup=1;flashimg=1;slotselect
 /vendor_boot     emmc   /dev/block/by-name/vendor_boot     flags=display="Vendor Boot";backup=1;flashimg=1;slotselect
 /dtbo            emmc   /dev/block/by-name/dtbo            flags=display="DTBO";backup=1;flashimg=1;slotselect
 
-# AVB (A/B)
+# AVB
 /vbmeta          emmc   /dev/block/by-name/vbmeta          flags=display="VBMeta";flashimg=1;slotselect
 /vbmeta_system   emmc   /dev/block/by-name/vbmeta_system   flags=display="VBMeta System";flashimg=1;slotselect
 /vbmeta_vendor   emmc   /dev/block/by-name/vbmeta_vendor   flags=display="VBMeta Vendor";flashimg=1;slotselect
 
-# Super (Dynamic Partition)
+# Super
 /super           emmc   /dev/block/by-name/super           flags=display="Super"
 
 # Data (F2FS, encrypted)
 /data            f2fs   /dev/block/by-name/userdata        flags=display="Data";backup=1;wipeingui;usermrf
 
-# Metadata (FBE)
+# Metadata
 /metadata        ext4   /dev/block/by-name/metadata        flags=display="Metadata"
