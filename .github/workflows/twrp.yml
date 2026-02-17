@@ -5,24 +5,41 @@ on:
 
 jobs:
   build:
-    name: Build Recovery 
+    name: Build Recovery
     runs-on: ubuntu-22.04
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+      CCACHE_EXEC: /usr/bin/ccache
     permissions:
       contents: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-              
+
       - name: Clean-up
         uses: rokibhasansagar/slimhub_actions@main
 
       - name: Swap Space
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 24
+          swap-size-gb: 16
+          
+      - name: Setup ccache
+        uses: actions/cache@v5
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ${{ runner.os }}-ccache-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-ccache-
+
+      - name: Configure ccache
+        run: |
+          ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
+          ccache -M 10G     
+          ccache -z         
+          ccache -s
 
       - name: Build Environment
         run: |
@@ -44,39 +61,42 @@ jobs:
           export DEVICE_TREE=https://github.com/ayusc/orangefox_device_lava_LXX503
           export DEVICE_TREE_BRANCH=main
           export DEVICE_PATH=device/lava/LXX503
-      
+
           cd ${GITHUB_WORKSPACE}/twrp
           git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH ./$DEVICE_PATH
           cd $DEVICE_PATH
           echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: Building twrp
+      - name: Building TWRP (with ccache)
         run: |
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
-
           cd ${GITHUB_WORKSPACE}/twrp
           set +e
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
+          export USE_CCACHE=1
+          export CCACHE_EXEC=/usr/bin/ccache
           set -e
           lunch omni_${DEVICE_NAME}-eng
           make clean
           mka adbd ${BUILD_TARGET}image
-          mv out/target/product/LXX503/boot.img out/target/product/LXX503/twrp.img
-          
+          mv out/target/product/${DEVICE_NAME}/boot.img out/target/product/${DEVICE_NAME}/twrp.img
+
+      - name: Cache Stats
+        run: ccache -s
+
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             twrp/out/target/product/LXX503/twrp.img
-            twrp/out/target/product/LXX503/twrp.zip
           name: TWRP Recovery for Lava Blaze 5G (LXX503)
           tag_name: ${{ github.run_id }}
           body: |
-            TWRP Recovery Build - Unofficial 
+            TWRP Recovery Build - Unofficial
             
             Device: Lava Blaze 5G
             Codename: LXX503
             Recovery Image: twrp.img
-            Recovery Zip: twrp.zip
+            Recovery ZIP: twrp.zip
