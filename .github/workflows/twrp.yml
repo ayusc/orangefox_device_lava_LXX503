@@ -116,5 +116,4 @@ jobs:
             
             Device: Lava Blaze 5G
             Codename: LXX503
-            Recovery Image: twrp.img
-            Recovery ZIP: twrp.zip
+            Recovery Image: twrp.img          
