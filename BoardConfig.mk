@@ -71,6 +71,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_SCREEN_DENSITY := 320
+TARGET_STRIP_MODULE := true
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
@@ -150,7 +151,7 @@ TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_PYTHON := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
+#TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
 TW_FORCE_CPUINFO_FOR_DEVICE_ID := true
 TW_NO_FASTBOOT_BOOT := true
 TW_DEVICE_VERSION := LXX503
