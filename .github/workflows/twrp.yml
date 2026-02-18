@@ -27,14 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Clean-up
-        uses: rokibhasansagar/slimhub_actions@main
-
-      - name: Swap Space
-        uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 16
-
       - name: Install ccache
         run: |
           sudo apt install -y ccache 
@@ -59,7 +51,7 @@ jobs:
           chmod 777 ${{ env.CCACHE_DIR }}
           ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
           ccache --set-config=temporary_dir=/tmp/ccache-tmp
-          ccache -M 15G     
+          ccache -M 5G     
           ccache -z         
           ccache -s
 
