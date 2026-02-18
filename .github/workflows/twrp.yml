@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       clean_ccache:
-        description: "Delete ccache before build?"
+        description: "Use ccache for this build ?"
         required: true
         type: choice
         default: "no"
@@ -30,12 +30,6 @@ jobs:
         run: |
           sudo apt install -y ccache 
           
-      - name: Clean ccache (if requested)
-        if: github.event.inputs.clean_ccache == 'yes'
-        run: |
-          rm -rf ${{ env.CCACHE_DIR }}
-          echo "ccache cleared"
-          
       - name: Setup ccache
         uses: actions/cache@v5
         with:
@@ -43,6 +37,12 @@ jobs:
           key: ccache-${{ runner.os }}-twrp
           restore-keys: |
             ccache-${{ runner.os }}-
+
+      - name: Disable ccache (if requested)
+        if: github.event.inputs.clean_ccache == 'yes'
+        run: |
+          rm -rf ${{ env.CCACHE_DIR }}
+          echo "ccache disbaled"
 
       - name: Configure ccache
         run: |
