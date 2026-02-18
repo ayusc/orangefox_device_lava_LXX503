@@ -19,7 +19,6 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CCACHE_DIR: /tmp/ccache
-      CCACHE_EXEC: /usr/bin/ccache  
     permissions:
       contents: write
 
