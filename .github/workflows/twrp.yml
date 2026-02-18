@@ -40,10 +40,10 @@ jobs:
       - name: Setup ccache
         uses: actions/cache@v5
         with:
-         path: ${{ env.CCACHE_DIR }}
-         key: ccache-${{ runner.os }}-${{ github.run_id }}
-         restore-keys: |
-           ccache-${{ runner.os }}-          
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ runner.os }}-twrp
+          restore-keys: |
+            ccache-${{ runner.os }}-
 
       - name: Configure ccache
         run: |
@@ -60,6 +60,14 @@ jobs:
           sudo curl https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo
           sudo chmod a+x /usr/local/bin/repo
           repo --version
+
+      - name: Cache repo
+        uses: actions/cache@v5
+        with:
+          path: twrp/.repo
+          key: repo-${{ runner.os }}-twrp-12.1
+          restore-keys: |
+            repo-${{ runner.os }}-
 
       - name: Set-up Manifest
         run: |
