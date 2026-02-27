@@ -18,7 +18,6 @@ ro.vendor.mtk_microtrust_tee_support=1
 
 # USB
 ro.sys.usb.bicr=no
-ro.sys.usb.charging.only=yes
 ro.sys.usb.mtp.whql.enable=0
 ro.sys.usb.storage.type=mtp
 persist.sys.usb.config=mtp,adb
