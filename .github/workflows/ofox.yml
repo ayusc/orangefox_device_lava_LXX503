@@ -2,27 +2,64 @@ name: OrangeFox Recovery Build
 
 on:
   workflow_dispatch:
+    inputs:
+      clean_ccache:
+        description: "Delete ccache before build?"
+        required: true
+        type: choice
+        default: "no"
+        options:
+          - "no"
+          - "yes"
 
 jobs:
   build:
     name: Build Recovery 
     runs-on: ubuntu-22.04
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     permissions:
       contents: write
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CCACHE_DIR: /tmp/ccache
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-              
-      - name: Clean-up
-        uses: rokibhasansagar/slimhub_actions@main
 
-      - name: Swap Space
-        uses: pierotofy/set-swap-space@master
+      # Install ccache ONLY if not cleaning
+      - name: Install ccache
+        if: github.event.inputs.clean_ccache == 'no'
+        run: sudo apt update && sudo apt install -y ccache
+
+      # Restore cache ONLY if not cleaning
+      - name: Setup ccache
+        if: github.event.inputs.clean_ccache == 'no'
+        uses: actions/cache@v5
         with:
-          swap-size-gb: 24
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ runner.os }}-${{ github.ref_name }}
+          restore-keys: |
+            ccache-${{ runner.os }}-
+
+      # Delete cache completely if requested
+      - name: Remove ccache completely
+        if: github.event.inputs.clean_ccache == 'yes'
+        run: |
+          sudo rm -rf ${{ env.CCACHE_DIR }}
+          echo "ccache removed successfully"
+
+      # Configure ccache ONLY if not cleaning
+      - name: Configure ccache
+        if: github.event.inputs.clean_ccache == 'no'
+        run: |
+          mkdir -p ${{ env.CCACHE_DIR }}
+          ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
+          ccache --set-config=temporary_dir=/tmp/ccache-tmp
+          ccache -M 5G
+          ccache -z
+          ccache -s
 
       - name: Build Environment
         run: |
@@ -47,6 +84,7 @@ jobs:
           export DEVICE_TREE_BRANCH=main
           export DEVICE_PATH=device/lava/LXX503
           export MANIFEST_BRANCH=12.1
+
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
           git clone $DEVICE_TREE -b $DEVICE_TREE_BRANCH ./$DEVICE_PATH
           cd $DEVICE_PATH
@@ -59,20 +97,32 @@ jobs:
           export MANIFEST_BRANCH=12.1
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
-          set +e
+
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
-          set -e
+
+          # Enable ccache only when not cleaning
+          if [ "${{ github.event.inputs.clean_ccache }}" == "no" ]; then
+            export USE_CCACHE=1
+            export CCACHE_DIR=${{ env.CCACHE_DIR }}
+          fi
+
           lunch omni_${DEVICE_NAME}-eng
           make clean
           mka adbd ${BUILD_TARGET}image
-          
+          mv out/target/product/${DEVICE_NAME}/boot.img \
+             out/target/product/${DEVICE_NAME}/ofox.img
+
+      # Show stats ONLY if ccache used
+      - name: Cache Stats
+        if: github.event.inputs.clean_ccache == 'no'
+        run: ccache -s
+
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            OrangeFox/fox_12.1/out/target/product/LXX503/*-LXX503.img
-            OrangeFox/fox_12.1/out/target/product/LXX503/*-LXX503.zip
+            OrangeFox/fox_12.1/out/target/product/LXX503/ofox.img
           name: OrangeFox Recovery for Lava Blaze 5G (LXX503)
           tag_name: ${{ github.run_id }}
           body: |
@@ -80,5 +130,4 @@ jobs:
             
             Device: Lava Blaze 5G
             Codename: LXX503
-            Recovery Image: OrangeFox-xx_A14-Unofficial-LXX503.img
-            Recovery Zip: OrangeFox-xx_A14-Unofficial-LXX503.zip
+            Recovery Image: ofox.img
