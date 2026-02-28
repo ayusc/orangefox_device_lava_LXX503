@@ -125,7 +125,7 @@ OF_BIND_MOUNT_SDCARD_ON_FORMAT := 1
 OF_LOOP_DEVICE_ERRORS_TO_LOG := 1
 OF_DEFAULT_KEYMASTER_VERSION := 4.1
 OF_FL_PATH1 := /sys/class/flashlight_core/flashlight/flashlight_torch/flashlight_torch
-OF_FL_PATH2 := /sys/class/flashlight_core/flashlight/flashlight_torch/subsystem/flashlight
+#OF_FL_PATH2 := /sys/class/flashlight_core/flashlight/flashlight_torch/subsystem/flashlight
 
 # Filesystem Feature
 TARGET_USES_MKE2FS := true
