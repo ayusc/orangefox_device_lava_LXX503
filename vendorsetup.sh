@@ -7,3 +7,4 @@ export FOX_DELETE_MAGISK_ADDON=1
 export FOX_DELETE_INITD_ADDON=1
 export FOX_REMOVE_BASH=1
 export FOX_REMOVE_AAPT=1
+export OF_FL_PATH1="/system/flashlight"
