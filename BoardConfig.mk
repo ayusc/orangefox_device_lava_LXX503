@@ -124,7 +124,7 @@ OF_WIPE_METADATA_AFTER_DATAFORMAT := 1
 OF_BIND_MOUNT_SDCARD_ON_FORMAT := 1
 OF_LOOP_DEVICE_ERRORS_TO_LOG := 1
 OF_DEFAULT_KEYMASTER_VERSION := 4.1
-OF_FL_PATH1 := /sys/class/flashlight_core/flashlight/flashlight_torch/flashlight_torch
+OF_FL_PATH1 := "/sys/class/flashlight_core/flashlight/flashlight_torch/flashlight_torch"
 #OF_FL_PATH2 := /sys/class/flashlight_core/flashlight/flashlight_torch/subsystem/flashlight
 
 # Filesystem Feature
@@ -152,7 +152,7 @@ TW_EXCLUDE_PYTHON := true
 TW_EXCLUDE_APEX := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file"
 TW_FORCE_CPUINFO_FOR_DEVICE_ID := true
 TW_NO_FASTBOOT_BOOT := true
 TW_DEVICE_VERSION := LXX503
