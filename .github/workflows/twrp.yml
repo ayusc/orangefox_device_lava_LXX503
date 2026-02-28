@@ -58,9 +58,7 @@ jobs:
           ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
           ccache --set-config=temporary_dir=/tmp/ccache-tmp
           ccache -M 10G
-          ccache -z
-          ccache -s
-
+          
       - name: Build Environment
         run: |
           sudo curl https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo
