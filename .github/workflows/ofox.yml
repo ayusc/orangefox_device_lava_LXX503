@@ -56,7 +56,7 @@ jobs:
           mkdir -p ${{ env.CCACHE_DIR }}
           ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
           ccache --set-config=temporary_dir=/tmp/ccache-tmp
-          ccache -M 5G
+          ccache -M 10G
           ccache -z
           ccache -s
 
