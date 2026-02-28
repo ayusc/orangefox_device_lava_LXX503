@@ -1,30 +1,31 @@
 #<mnt_point>		<type>		<device>						<mnt_flags and options>
 
 # Boot & Dtbo
-/boot			emmc		/dev/block/by-name/boot			flags=display="boot";backup=1;flashimg=1;slotselect
-/dtbo			emmc		/dev/block/by-name/dtbo			flags=display="dtbo";backup=1;flashimg=1;slotselect
+/boot			emmc		/dev/block/by-name/boot			flags=display="Boot";backup=1;flashimg=1;slotselect
+/dtbo			emmc		/dev/block/by-name/dtbo			flags=display="Dtbo";backup=1;flashimg=1;slotselect
 
 # Vbmeta 
-/vbmeta			emmc		/dev/block/by-name/vbmeta		flags=display="vbmeta";backup=1;flashimg=1;slotselect
-/vbmeta_system		emmc		/dev/block/by-name/vbmeta_system	flags=display="vbmeta system";flashimg=1;slotselect
-/vbmeta_vendor		emmc		/dev/block/by-name/vbmeta_vendor	flags=display="vbmeta vendor";flashimg=1;slotselect
+/vbmeta			emmc		/dev/block/by-name/vbmeta		flags=display="Vbmeta";backup=1;flashimg=1;slotselect
+/vbmeta_system		emmc		/dev/block/by-name/vbmeta_system	flags=display="Vbmeta System";flashimg=1;slotselect
+/vbmeta_vendor		emmc		/dev/block/by-name/vbmeta_vendor	flags=display="Vbmeta Vendor";flashimg=1;slotselect
 
 # Persist 
-/persist_image		emmc		/dev/block/by-name/persist		flags=display="persist";backup=1;flashimg=1
+/persist_image		emmc		/dev/block/by-name/persist		flags=display="Persist Image";backup=1;flashimg=1
 
 # IMEI and Baseband 
-/nvram_image			emmc		/dev/block/by-name/nvram		flags=display="nvram";backup=1;flashimg=1
-/nvdata_image    emmc    /dev/block/by-name/nvdata    flags=display="nvdata";backup=1;flashimg=1
-/nvcfg			ext4		/dev/block/by-name/nvcfg		flags=display="nvcfg";backup=1
-/protect_f_image		emmc		/dev/block/by-name/protect1		flags=display="protect_f";backup=1;flashimg=1
-/protect_s_image		emmc		/dev/block/by-name/protect2		flags=display="protect_s";backup=1;flashimg=1
+/nvram_image		emmc		/dev/block/by-name/nvram		flags=display="Nvram";backup=1;flashimg=1
+/nvdata_image		emmc		/dev/block/by-name/nvdata		flags=display="Nvdata Image";backup=1;flashimg=1
+/protect_f_image	emmc		/dev/block/by-name/protect1		flags=display="Protect_f Image";backup=1;flashimg=1
+/protect_s_image	emmc		/dev/block/by-name/protect2		flags=display="Protect_s Image";backup=1;flashimg=1
 
 # Standard MediaTek Partitions 
-/logo			emmc		/dev/block/by-name/logo			flags=display="logo";backup=1;flashimg=1
-/system_image	         emmc		/dev/block/mapper/system	flags=display="system";slotselect;backup=1;flashimg=1
-/vendor_image	         emmc		/dev/block/mapper/vendor	flags=display="vendor";slotselect;backup=1;flashimg=1
-/system_ext_image        emmc		/dev/block/mapper/system_ext	flags=display="system_ext";slotselect;backup=1;flashimg=1
-/product_image           emmc		/dev/block/mapper/product	flags=display="product";slotselect;backup=1;flashimg=1
+/logo			emmc		/dev/block/by-name/logo			flags=display="Logo";backup=1;flashimg=1
+
+# Dynamic Partition Images (For flashing GSIs)
+/system_image		emmc		/dev/block/mapper/system	flags=display="System Image";slotselect;backup=1;flashimg=1
+/vendor_image		emmc		/dev/block/mapper/vendor	flags=display="Vendor Image";slotselect;backup=1;flashimg=1
+/system_ext_image	emmc		/dev/block/mapper/system_ext	flags=display="System_Ext Image";slotselect;backup=1;flashimg=1
+/product_image		emmc		/dev/block/mapper/product	flags=display="Product Image";slotselect;backup=1;flashimg=1
 
 # Removable Storage
 /external_sd		vfat		/dev/block/mmcblk0p1	/dev/block/mmcblk0	flags=display="MicroSD Card";storage;wipeingui;removable
