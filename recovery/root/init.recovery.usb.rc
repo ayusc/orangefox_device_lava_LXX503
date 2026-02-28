@@ -762,6 +762,11 @@ on property:sys.usb.ffs.ready=0
 on property:sys.usb.ffs.ready=1
    setprop vendor.usb.ffs.ready 1
 
+on property:sys.usb.ffs.mtp.ready=0
+   setprop vendor.usb.ffs.mtp.ready 0
+on property:sys.usb.ffs.mtp.ready=1
+   setprop vendor.usb.ffs.mtp.ready 1
+
 ### CHARGING ###
 on property:sys.usb.config=cdp && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
