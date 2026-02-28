@@ -21,6 +21,10 @@
 
 # Standard MediaTek Partitions 
 /logo			emmc		/dev/block/by-name/logo			flags=display="Logo";backup=1;flashimg=1
+/system_image	         emmc		/dev/block/mapper/system	flags=display="System";slotselect;backup=1;flashimg=1
+/vendor_image	         emmc		/dev/block/mapper/vendor	flags=display="Vendor";slotselect;backup=1;flashimg=1
+/system_ext_image        emmc		/dev/block/mapper/system_ext	flags=display="system_ext";slotselect;backup=1;flashimg=1
+/product_image           emmc		/dev/block/mapper/product	flags=display="Product";slotselect;backup=1;flashimg=1
 
 # Removable Storage
 /external_sd		vfat		/dev/block/mmcblk0p1	/dev/block/mmcblk0	flags=display="MicroSD Card";storage;wipeingui;removable
