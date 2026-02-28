@@ -122,3 +122,10 @@ jobs:
             Device: Lava Blaze 5G
             Codename: LXX503
             Recovery Image: ofox.img
+            
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrangeFox-LXX503-12.1
+          path: OrangeFox/fox_12.1/out/target/product/LXX503/ofox.img
+          retention-days: 30
