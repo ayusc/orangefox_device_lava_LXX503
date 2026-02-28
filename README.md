@@ -3,6 +3,7 @@
 <img src="https://wiki.orangefox.tech/banner.svg" width="500">
 
 [![Orangefox Recovery Build](https://github.com/ayusc/orangefox_device_lava_LXX503/actions/workflows/ofox.yml/badge.svg?event=workflow_dispatch)](https://github.com/ayusc/orangefox_device_lava_LXX503/actions/workflows/ofox.yml)
+[![TWRP Recovery Build](https://github.com/ayusc/orangefox_device_lava_LXX503/actions/workflows/twrp.yml/badge.svg?event=workflow_dispatch)](https://github.com/ayusc/orangefox_device_lava_LXX503/actions/workflows/twrp.yml)
 
 > [!WARNING]
 > **Read Carefully !!!**<br>
