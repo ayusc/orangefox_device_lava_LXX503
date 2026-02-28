@@ -96,9 +96,10 @@ jobs:
           export MANIFEST_BRANCH=12.1
 
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
-
+          set +e
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
+          set -e     
 
           # Enable ccache only when not cleaning
           if [ "${{ github.event.inputs.clean_ccache }}" == "no" ]; then
