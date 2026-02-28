@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ${{ env.CCACHE_DIR }}
-          key: ccache-${{ runner.os }}-ofox-${{ github.run_id }}
+          key: ccache-${{ runner.os }}-ofox-${{ github.ref_name }}
           restore-keys: |
             ccache-${{ runner.os }}-ofox-
 
@@ -92,19 +92,16 @@ jobs:
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
           export MANIFEST_BRANCH=12.1
-
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_$MANIFEST_BRANCH
-          set +e
-          source build/envsetup.sh
-          export ALLOW_MISSING_DEPENDENCIES=true
-          set -e     
-
           # Enable ccache only when not cleaning
           if [ "${{ github.event.inputs.clean_ccache }}" == "no" ]; then
             export USE_CCACHE=1
             export CCACHE_DIR=${{ env.CCACHE_DIR }}
-          fi
-
+          fi          
+          set +e
+          source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          set -e     
           lunch omni_${DEVICE_NAME}-eng
           mka adbd ${BUILD_TARGET}image
           mv out/target/product/${DEVICE_NAME}/boot.img \
