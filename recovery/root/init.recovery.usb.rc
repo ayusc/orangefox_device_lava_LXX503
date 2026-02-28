@@ -3,9 +3,7 @@ on early-init
     setprop sys.usb.configfs 0
 
 on post-fs
-    # Use Google Vendor ID for ADB, Sideload, and fastboot
     setprop sys.usb.vid "0x18D1"
-    # Use MTK Vendor ID for Composite MTP
     setprop sys.usb.vid.mtk "0x0E8D"
 
     mkdir /config
@@ -46,9 +44,10 @@ on boot
     setprop sys.usb.ffs.aio_compat 0
     write /sys/class/android_usb/android0/f_mtp/cpu_mask 0x80
     write /sys/module/usb_f_mtp/parameters/mtp_rx_cont 1
-    
-    # for usb otg sdcard hot plug detection
     write /sys/module/block/parameters/events_dfl_poll_msecs 1000
+    
+    # FORCE MTP+ADB TO OVERRIDE THE BROKEN GHOST PROPERTY IN /DATA
+    setprop sys.usb.config mtp,adb
 
 on property:init.svc.adbd=stopped
     setprop sys.usb.ffs.ready 0
@@ -82,12 +81,6 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:sys.u
 on property:sys.usb.config=mtp && property:sys.usb.configfs=1
     setprop sys.usb.pid 0x2008
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
-    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
-    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=mtp && property:sys.usb.configfs=1 && property:sys.usb.ffs.mtp.ready=1
-    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
     write /config/usb_gadget/g1/idVendor ${sys.usb.vid.mtk}
     write /config/usb_gadget/g1/idProduct ${sys.usb.pid}
     write /config/usb_gadget/g1/os_desc/use 1
@@ -95,10 +88,11 @@ on property:sys.usb.config=mtp && property:sys.usb.configfs=1 && property:sys.us
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
+### main function : mtp,adb ###
 on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
     setprop sys.usb.pid 0x201D
 
-on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1 && property:sys.usb.ffs.mtp.ready=1
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb"
     write /config/usb_gadget/g1/idVendor ${sys.usb.vid.mtk}
     write /config/usb_gadget/g1/idProduct ${sys.usb.pid}
