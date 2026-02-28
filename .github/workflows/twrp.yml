@@ -16,13 +16,13 @@ jobs:
   build:
     name: Build Recovery
     runs-on: ubuntu-22.04
-    permissions:
-      contents: write
-
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CCACHE_DIR: /tmp/ccache
-
+      CCACHE_EXEC: /usr/bin/ccache  
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -37,10 +37,10 @@ jobs:
         if: github.event.inputs.clean_ccache == 'no'
         uses: actions/cache@v5
         with:
-          path: ${{ env.CCACHE_DIR }}
-          key: ccache-${{ runner.os }}-twrp-${{ github.ref_name }}
-          restore-keys: |
-            ccache-${{ runner.os }}-twrp-
+         path: ${{ env.CCACHE_DIR }}
+         key: ccache-${{ runner.os }}-${{ github.run_id }}
+         restore-keys: |
+           ccache-${{ runner.os }}- 
 
       # Delete cache completely if requested
       - name: Remove ccache completely
@@ -57,7 +57,7 @@ jobs:
           chmod 777 ${{ env.CCACHE_DIR }}
           ccache --set-config=cache_dir=${{ env.CCACHE_DIR }}
           ccache --set-config=temporary_dir=/tmp/ccache-tmp
-          ccache -M 10G
+          ccache -M 5G
           
       - name: Build Environment
         run: |
@@ -90,17 +90,12 @@ jobs:
           export DEVICE_NAME=LXX503
           export BUILD_TARGET=boot
           cd ${GITHUB_WORKSPACE}/twrp
-          # Enable ccache only when not cleaning
-          if [ "${{ github.event.inputs.clean_ccache }}" == "no" ]; then
-            export USE_CCACHE=1
-            export CCACHE_DIR=${{ env.CCACHE_DIR }}
-          fi          
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
+          export USE_CCACHE=1
           lunch omni_${DEVICE_NAME}-eng
           mka adbd ${BUILD_TARGET}image
-          mv out/target/product/${DEVICE_NAME}/boot.img \
-             out/target/product/${DEVICE_NAME}/twrp.img
+          mv out/target/product/${DEVICE_NAME}/boot.img out/target/product/${DEVICE_NAME}/twrp.img
 
       # Show stats ONLY if ccache used
       - name: Cache Stats
