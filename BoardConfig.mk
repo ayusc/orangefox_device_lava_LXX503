@@ -134,6 +134,7 @@ TW_ENABLE_FS_COMPRESSION := false
 TW_NO_HAPTICS := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
+TWRP_EXCLUDE_DEFAULT_USB_INIT := true
 
 # TWRP features
 TW_THEME := portrait_hdpi
@@ -148,6 +149,7 @@ TW_USE_TOOLBOX := true
 TW_HAS_MTP := true
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_PYTHON := true
+TW_EXCLUDE_APEX := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 #TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
