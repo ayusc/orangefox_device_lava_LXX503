@@ -115,3 +115,10 @@ jobs:
             Device: Lava Blaze 5G
             Codename: LXX503
             Recovery Image: twrp.img
+            
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: twrp-LXX503
+          path: twrp/out/target/product/LXX503/twrp.img
+          retention-days: 30
