@@ -88,6 +88,26 @@ jobs:
           cd $DEVICE_PATH
           echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
+      - name: Fix Flashlight 
+        run: |
+          cd ${GITHUB_WORKSPACE}/OrangeFox/fox_12.1
+          DEVICE_ROOT="device/lava/LXX503/recovery/root"
+          mkdir -p ${DEVICE_ROOT}/system/flashlight
+          echo "1" > ${DEVICE_ROOT}/system/flashlight/max_brightness
+          ln -sf /sys/devices/virtual/flashlight_core/flashlight/flashlight_torch ${DEVICE_ROOT}/system/flashlight/brightness
+          
+          echo "--- Flashlight Symlink Verification ---"
+          echo "Link Location: ${DEVICE_ROOT}/system/flashlight/brightness"
+          echo "Points To: $(readlink ${DEVICE_ROOT}/system/flashlight/brightness)"
+          
+          # Check if it looks right for the recovery root
+          if [ "$(readlink ${DEVICE_ROOT}/system/flashlight/brightness)" == "/sys/devices/virtual/flashlight_core/flashlight/flashlight_torch" ]; then
+            echo "Success: Symlink points to the correct absolute path."
+          else
+            echo "Error: Symlink path mismatch!"
+            exit 1
+          fi         
+
       - name: Building OrangeFox
         run: |
           export DEVICE_NAME=LXX503
