@@ -1,9 +1,12 @@
 import /init.recovery.microtrust.rc
-import /mtk-plapth-utils.rc
+import /mtk-plpath-utils.rc
 
 on boot
     start boot-hal-1-2
     start health-hal-2-1
+
+    chmod 0666 /sys/devices/virtual/flashlight_core/flashlight/flashlight_torch
+    symlink /sys/devices/virtual/flashlight_core/flashlight/flashlight_torch /tmp/flashlight    
 
 on init
     # Force SELinux to permissive
@@ -70,9 +73,6 @@ service mtk.plpath.utils.link /system/bin/mtk_plpath_utils
     oneshot
     disabled
     seclabel u:r:recovery:s0
-
-# Triggers
-# --------------------------------------------------------
 
 on property:vendor.sys.listener.registered=true
     start vendor.keymaster-4-1-beanpod

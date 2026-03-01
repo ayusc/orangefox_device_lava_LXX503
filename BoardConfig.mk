@@ -105,6 +105,7 @@ OF_MAINTAINER := Ayus Chatterjee
 OF_CLOCK_POS := 1
 OF_HIDE_NOTCH := 1
 OF_FLASHLIGHT_ENABLE := 1
+OF_FL_PATH1="/tmp/flashlight"
 OF_SCREEN_H := 2400 # (aspect ratio height) × 120, 20 × 120
 #OF_STATUS_H := 80
 OF_STATUS_INDENT_LEFT := 50
