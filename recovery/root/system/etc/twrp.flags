@@ -1,7 +1,7 @@
 #<mnt_point>		<type>		<device>						<mnt_flags and options>
 
 # Boot & Dtbo
-/boot			emmc		/dev/block/by-name/boot			flags=display="Boot";backup=1;flashimg=1;slotselect
+/boot			emmc		/dev/block/by-name/boot			flags=display="boot";backup=1;flashimg=1;slotselect
 /dtbo			emmc		/dev/block/by-name/dtbo			flags=display="Dtbo";backup=1;flashimg=1;slotselect
 
 # Vbmeta 
@@ -10,16 +10,17 @@
 /vbmeta_vendor		emmc		/dev/block/by-name/vbmeta_vendor	flags=display="Vbmeta Vendor";flashimg=1;slotselect
 
 # Persist 
-/persist_image		emmc		/dev/block/by-name/persist		flags=display="Persist Image";backup=1;flashimg=1
+/persist_image		emmc		/dev/block/by-name/persist		flags=display="Persist";backup=1;flashimg=1
 
 # IMEI and Baseband 
 /nvram_image		emmc		/dev/block/by-name/nvram		flags=display="Nvram";backup=1;flashimg=1
-/nvdata_image		emmc		/dev/block/by-name/nvdata		flags=display="Nvdata Image";backup=1;flashimg=1
-/protect_f_image	emmc		/dev/block/by-name/protect1		flags=display="Protect_f Image";backup=1;flashimg=1
-/protect_s_image	emmc		/dev/block/by-name/protect2		flags=display="Protect_s Image";backup=1;flashimg=1
+/nvdata_image		emmc		/dev/block/by-name/nvdata		flags=display="Nvdata";backup=1;flashimg=1
+/protect_f_image	emmc		/dev/block/by-name/protect1		flags=display="Protect_f";backup=1;flashimg=1
+/protect_s_image	emmc		/dev/block/by-name/protect2		flags=display="Protect_s";backup=1;flashimg=1
 
 # Standard MediaTek Partitions 
 /logo			emmc		/dev/block/by-name/logo			flags=display="Logo";backup=1;flashimg=1
+/expdb    ext4    /dev/block/by-name/expdb    flags=display="expdb";backup=1
 
 # Dynamic Partition Images (For flashing GSIs)
 /system_image		emmc		/dev/block/mapper/system	flags=display="System Image";slotselect;backup=1;flashimg=1
