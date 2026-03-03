@@ -10,17 +10,28 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 AB_OTA_UPDATER := true
 ENABLE_VIRTUAL_AB := true
 
-# Define A/B partitions so recovery knows what to slot-switch
+# Define A/B partitions
 AB_OTA_PARTITIONS += \
     boot \
-    vendor_boot \
+    dpm \
+    dtbo \
+    gz \
+    lk \
+    logo \
+    mcupm \
+    md1img \
+    pi_img \
+    preloader \
+    product \
+    scp \
+    spmfw \
+    sspm \
+    system \
+    tee \
     vbmeta \
     vbmeta_system \
     vbmeta_vendor \
-    system \
-    system_ext \
-    product \
-    vendor 
+    vendor
 
 # Configure emulated_storage.mk (Required for /sdcard)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
@@ -28,7 +39,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 # Enable Fuse Passthrough for performance
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
-# Minimal Boot Control HAL (Essential for A/B switching)
+# Minimal Boot Control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-mtkimpl.recovery \
     bootctrl.mt6833 \
@@ -50,6 +61,31 @@ PRODUCT_PACKAGES += \
     gatekeeper.default \
     kmsetkey.beanpod \
     libSoftGatekeeper
+
+# Health Hal
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.1-impl \
+    android.hardware.health@2.1-service
+
+# Fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd
+
+# MTK PlPath Utils
+PRODUCT_PACKAGES += \
+    mtk_plpath_utils.recovery
+
+PRODUCT_PACKAGES_DEBUG += \
+    update_engine_client
+    bootctl
+
+PRODUCT_PACKAGES += \
+    otapreopt_script \
+    cppreopts.sh \
+    update_engine \
+    update_verifier \
+    update_engine_sideload
 
 # Keystore2
 PRODUCT_PACKAGES += \
