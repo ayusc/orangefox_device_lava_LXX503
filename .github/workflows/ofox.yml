@@ -92,21 +92,18 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_12.1
           DEVICE_ROOT="device/lava/LXX503/recovery/root"
-          mkdir -p ${DEVICE_ROOT}/system/flashlight
-          echo "1" > ${DEVICE_ROOT}/system/flashlight/max_brightness
-          ln -sf /sys/devices/virtual/flashlight_core/flashlight/flashlight_torch ${DEVICE_ROOT}/system/flashlight/brightness
-          
-          echo "--- Flashlight Symlink Verification ---"
-          echo "Link Location: ${DEVICE_ROOT}/system/flashlight/brightness"
-          echo "Points To: $(readlink ${DEVICE_ROOT}/system/flashlight/brightness)"
-          
-          # Check if it looks right for the recovery root
-          if [ "$(readlink ${DEVICE_ROOT}/system/flashlight/brightness)" == "/sys/devices/virtual/flashlight_core/flashlight/flashlight_torch" ]; then
-            echo "Success: Symlink points to the correct absolute path."
+          FL_DIR="${DEVICE_ROOT}/system/flashlight"
+          TARGET_PATH="/sys/devices/virtual/flashlight_core/flashlight/flashlight_torch"     
+          mkdir -p "$FL_DIR"
+          echo "1" > "$FL_DIR/max_brightness"
+          ln -sf "$TARGET_PATH" "$FL_DIR/brightness"
+          ACTUAL_LINK=$(readlink "$FL_DIR/brightness")
+          if [ "$ACTUAL_LINK" == "$TARGET_PATH" ]; then
+            echo "Success: Symlink points to $TARGET_PATH"
           else
             echo "Error: Symlink path mismatch!"
             exit 1
-          fi         
+          fi 
 
       - name: Building OrangeFox
         run: |
