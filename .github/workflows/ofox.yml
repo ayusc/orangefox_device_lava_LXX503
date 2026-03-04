@@ -92,18 +92,11 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_12.1
           DEVICE_ROOT="device/lava/LXX503/recovery/root"
-          FL_DIR="${DEVICE_ROOT}/etc/flashlight"
+          FL_DIR="${DEVICE_ROOT}/flashlight_fix"
           TARGET_PATH="/sys/devices/virtual/flashlight_core/flashlight/flashlight_torch"
           mkdir -p "$FL_DIR"
-          echo -n "1" > "$FL_DIR/max_brightness"     
-          ln -sf "$TARGET_PATH" "$FL_DIR/brightness"   
-          ACTUAL_LINK=$(readlink "$FL_DIR/brightness")
-          if [ "$ACTUAL_LINK" == "$TARGET_PATH" ]; then
-            echo "Success: Symlink flashlight to: $TARGET_PATH"
-          else
-            echo "Error: Symlink path mismatch!"
-            exit 1
-          fi
+          echo "1" > "$FL_DIR/max_brightness"
+          ln -sf "$TARGET_PATH" "$FL_DIR/brightness"
 
       - name: Building OrangeFox
         run: |
