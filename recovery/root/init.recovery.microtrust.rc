@@ -24,8 +24,59 @@ service teei_daemon /vendor/bin/teei_daemon \
     user root
     group root
     disabled
-	seclabel u:r:recovery:s0
+    seclabel u:r:recovery:s0
    # oneshot
+
+on fs
+    # Mount persist explicitly so TEE can read/write its secure data
+    mkdir /mnt/vendor/persist 0771 system system
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
+
+    # Proceed with standard TEE hardware nodes
+    chmod 0660 /dev/teei_client
+    chown system system /dev/teei_client
+    chmod 0660 /dev/teei_config
+    chown system system /dev/teei_config
+    # 666 for SVP
+    chmod 0666 /dev/isee_tee0
+    chown system drmrpc /dev/isee_tee0
+    chmod 0660 /dev/tz_vfs
+    chown system system /dev/tz_vfs
+    chmod 0660 /dev/teei_fp
+    chown system /dev/teei_fp
+    chown system drmrpc /dev/ut_keymaster
+    chmod 0660 /dev/ut_keymaster
+    # rpmb device
+    chmod 0660 /dev/rpmb0
+    chown system system /dev/rpmb0
+    chmod 0660 /dev/mmcblk0rpmb
+    chown root system /dev/mmcblk0rpmb
+    # legacy rpmb device for cross-platform compatibility
+    chmod 0660 /dev/emmcrpmb0
+    chown system system /dev/emmcrpmb0
+    chown system system /dev/utr_tui
+    chmod 0660 /dev/utr_tui
+
+on post-fs
+    # Set /mnt/vendor/persist/rpmb
+    chown system system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    restorecon_recursive /mnt/vendor/persist
+
+    mkdir /mnt/vendor/persist/rpmb
+    chown system system /mnt/vendor/persist/rpmb
+    chmod 0771 /mnt/vendor/persist/rpmb
+    restorecon_recursive /mnt/vendor/persist/rpmb
+
+    # Set other rpmb
+    mkdir /persist/rpmb
+    mkdir /vendor/persist/rpmb
+    chmod 0771 /persist/rpmb
+    chmod 0771 /vendor/persist/rpmb
+    chown system system /persist/rpmb
+    chown system system /vendor/persist/rpmb
+    restorecon_recursive /persist
+    restorecon_recursive /vendor/persist
 
 on boot
     chown system system /sys/bus/platform/devices/utos/dcih_notify_test
@@ -34,9 +85,8 @@ on boot
     chown system system /sys/bus/platform/devices/utos/unload_ut_drv
     chown system system /sys/bus/platform/devices/utos/notify_ree_dci_handler
 
-#for All mode
-on load_persist_props_action
-    write /proc/bootprof "start teei cfg (on load_persist_props_action)"
+    # Create the TEE Failure Record folders (Moved from load_persist_props_action)
+    write /proc/bootprof "start teei cfg (on boot)"
     mkdir /data/vendor/thh
     mkdir /data/vendor/thh/system
     mkdir /data/vendor/thh/tee_00
@@ -108,7 +158,12 @@ on load_persist_props_action
     restorecon_recursive /data/vendor/thh
     chmod 0771 /data/vendor/key_provisioning
     chown system system /data/vendor/key_provisioning
-    write /proc/bootprof "start teei cfg end (on load_persist_props_action)"
+    write /proc/bootprof "start teei cfg end (on boot)"
+
+    # Finally, start the daemon now that persist, rpmb, and thh are fully created!
+    write /proc/bootprof "start teei_daemon (on boot)"
+    start teei_daemon
+    write /proc/bootprof "start teei_daemon end (on boot)"
 
 on property:vold.decrypt=trigger_restart_framework
     write /proc/bootprof "start teei cfg (on trigger_restart_framework)"
@@ -184,55 +239,3 @@ on property:vold.decrypt=trigger_restart_framework
     chown system system /data/vendor/key_provisioning
     restorecon_recursive /data/vendor/thh
     write /proc/bootprof "start teei cfg end (on trigger_restart_framework)"
-
-on post-fs
-    # Set /mnt/vendor/persist/rpmb
-    chown system system /mnt/vendor/persist
-    chmod 0771 /mnt/vendor/persist
-    restorecon_recursive /mnt/vendor/persist
-
-    mkdir /mnt/vendor/persist/rpmb
-    chown system system /mnt/vendor/persist/rpmb
-    chmod 0771 /mnt/vendor/persist/rpmb
-    restorecon_recursive /mnt/vendor/persist/rpmb
-
-    # Set other rpmb
-    mkdir /persist/rpmb
-    mkdir /vendor/persist/rpmb
-    chmod 0771 /persist/rpmb
-    chmod 0771 /vendor/persist/rpmb
-    chown system system /persist/rpmb
-    chown system system /vendor/persist/rpmb
-    restorecon_recursive /persist
-    restorecon_recursive /vendor/persist
-
-on fs
-    chmod 0660 /dev/teei_client
-    chown system system /dev/teei_client
-    chmod 0660 /dev/teei_config
-    chown system system /dev/teei_config
-    # 666 for SVP
-    chmod 0666 /dev/isee_tee0
-    chown system drmrpc /dev/isee_tee0
-    chmod 0660 /dev/tz_vfs
-    chown system system /dev/tz_vfs
-    chmod 0660 /dev/teei_fp
-    chown system /dev/teei_fp
-    chown system drmrpc /dev/ut_keymaster
-    chmod 0660 /dev/ut_keymaster
-    # rpmb device
-    chmod 0660 /dev/rpmb0
-    chown system system /dev/rpmb0
-    chmod 0660 /dev/mmcblk0rpmb
-    chown root system /dev/mmcblk0rpmb
-    # legacy rpmb device for cross-platform compatibility
-    chmod 0660 /dev/emmcrpmb0
-    chown system system /dev/emmcrpmb0
-    chown system system /dev/utr_tui
-    chmod 0660 /dev/utr_tui
-    write /proc/bootprof "start teei_daemon (on fs)"
-    start teei_daemon
-    write /proc/bootprof "start teei_daemon end (on fs)"
-
-on property:vendor.crypto.fake_encrypt=1 && property:vold.post_fs_data_done=1
-    setprop vendor.soter.teei.crypto.state unencrypted
