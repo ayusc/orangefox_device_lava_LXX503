@@ -11,12 +11,10 @@
 > This is not a recovery image (instead a boot image) and it must be flashed into the /boot partition (since it's a virtual A/B device with no recovery partition). 
 
 ### How to Install 
-
-Steps:
-
 > [!NOTE]
 > You must have a backup of the stock boot.img before proceeding !
 
+<ins>**Steps:**</ins>
 1. First of all the bootloader needs to be unlocked (since you are here I assume you already have done it)
 2. Hold Vol UP + Power Key it open open a menu with 3 options (select Fastboot)
 3. Once in fastboot enter the command `fastboot flash boot twrp.img` or `fastboot flash boot ofox.img` (Depending on whether you want TWRP or Orangefox)
