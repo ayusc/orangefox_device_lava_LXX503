@@ -23,10 +23,6 @@ on fs && property:ro.debuggable=0
     # set charging free due to it wait for USB activation
     # start adbd
 
-on fs
-    mkdir /mnt/vendor/persist 0771 root root
-    mount ext4 /dev/block/platform/bootdevice/by-name/persist /mnt/vendor/persist
-
 service keystore_auth /system/bin/keystore_auth
     oneshot
     user system

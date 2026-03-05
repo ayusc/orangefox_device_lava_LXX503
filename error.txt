@@ -1,0 +1,200 @@
+--------- beginning of main
+03-01 08:18:44.821   417   482 E HidlServiceManagement: getService: Potential race detected. The VINTF manifest is not being enforced. If a HAL server has a delay in starting and it is not in the manifest, it will not be retrieved. Please make sure all HALs on this device are in the VINTF manifest and enable PRODUCT_ENFORCE_VINTF_MANIFEST on this device (this is also enabled by PRODUCT_FULL_TREBLE). PRODUCT_ENFORCE_VINTF_MANIFEST will ensure that no race condition is possible here.
+--------- beginning of kernel
+03-01 08:18:44.879   388   388 I (7)[388:logd.reader]logd: logdr: UID=0 GID=0 PID=652 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+03-01 08:18:45.040     0     0 W (1)[419:health@2.1-serv]healthd: battery l=36 v=3748 t=34.8 h=2 st=2 c=135400 fc=2946000 cc=0 chg=u
+03-01 08:18:45.041     0     0 I         : (1)[419:health@2.1-serv][fgauge_read_current] final current=1416 (ratio=1000)
+03-01 08:18:45.041     0     0 I         : (1)[419:health@2.1-serv][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:45.041     0     0 I         : (1)[419:health@2.1-serv][fg_get_current_iavg] -2948 1
+03-01 08:18:45.041     0     0 I         : (1)[419:health@2.1-serv][fgauge_read_current] final current=1416 (ratio=1000)
+03-01 08:18:45.041     0     0 I (1)[419:health@2.1-serv]time_to_full: 49431, remain:ui:66 mah:19443, fgcurrent:1416, qmax:2946
+03-01 08:18:45.067   328   328 I (2)[328:disp_echk]mtk_dsi_start_vdo_mode, vid_mode: 1
+03-01 08:18:45.156     7     7 W         : (1)[7:kworker/u16:0]<I>CTS-Core ESD protection work
+03-01 08:18:45.299   356   356 I (2)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: ICHG = 500mA, AICR = 500mA, MIVR = 4200mV, IEOC = 150mA, CV = 4450mV
+03-01 08:18:45.299   356   356 I (2)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: VBUS = 4825mV, IBUS = 432mA, VSYS = 3821mV, VBAT = 3815mV, IBAT = 190mA
+03-01 08:18:45.299   356   356 I (2)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: CHG_EN = 1, CHG_STATUS = progress, CHG_STAT1 = 0xA0
+03-01 08:18:45.299   356   356 I (2)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: CHG_CTRL1 = 0x00, CHG_CTRL2 = 0x1B
+03-01 08:18:45.348     0     0 I         : (0)[0:swapper/0][name:spm&][SPM] MCUSYSOFF Didn't enter low power scenario
+03-01 08:18:45.864   270   270 I         : (4)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:45.822   417   482 I recovery: charge_status CHARGING, charging 1, status SUCCESS, capacity 36
+03-01 08:18:46.823   417   482 E HidlServiceManagement: getService: Potential race detected. The VINTF manifest is not being enforced. If a HAL server has a delay in starting and it is not in the manifest, it will not be retrieved. Please make sure all HALs on this device are in the VINTF manifest and enable PRODUCT_ENFORCE_VINTF_MANIFEST on this device (this is also enabled by PRODUCT_FULL_TREBLE). PRODUCT_ENFORCE_VINTF_MANIFEST will ensure that no race condition is possible here.
+03-01 08:18:46.884   270   270 I         : (4)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:47.113   328   328 I (2)[328:disp_echk]mtk_dsi_start_vdo_mode, vid_mode: 1
+03-01 08:18:47.176     7     7 W         : (1)[7:kworker/u16:0]<I>CTS-Core ESD protection work
+03-01 08:18:47.824   417   482 I recovery: charge_status CHARGING, charging 1, status SUCCESS, capacity 36
+03-01 08:18:47.908   270   270 I         : (4)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:48.200   300   300 I         : (0)[300:kworker/u16:3]USB_BOOST, <boost_work(), 315> id:1, end of work
+03-01 08:18:48.200   301   301 I         : (2)[301:kworker/u16:4][Power/PPM] (0x20)(7370)(0)(0-7)(15)(0)(6)(6) (15)(0)(2)(2)
+03-01 08:18:48.200   301   301 I         : (2)[301:kworker/u16:4]USB_BOOST, <boost_work(), 315> id:0, end of work
+03-01 08:18:48.200   132   132 I         : (2)[132:kworker/u16:1]USB_BOOST, <boost_work(), 315> id:2, end of work
+03-01 08:18:48.431     0     0 I         : -(7)[0:swapper/7][thread:0] 2026-03-01 13:48:48.375302 UTC;android time 2026-03-01 13:48:48.375302
+03-01 08:18:48.732     0     0 I         : (3)[237:wdtk-3][wdk-c] cpu=3 o_k=3 lbit=0x8 cbit=0xff,f7,7,1,1727086542,ff,0,0,0,0,[62028384224,15000000] 17
+03-01 08:18:48.828     0     0 I         : (6)[240:wdtk-6][wdk-c] cpu=6 o_k=6 lbit=0x48 cbit=0xff,b7,7,1,1727086542,ff,0,0,0,0,[62124039532,14904348] 17
+03-01 08:18:48.828     0     0 I         : (1)[235:wdtk-1][wdk-c] cpu=1 o_k=1 lbit=0x4a cbit=0xff,b5,7,1,1727086542,ff,0,0,0,0,[62124050378,14904333] 17
+03-01 08:18:48.828     0     0 I         : (7)[241:wdtk-7][wdk-c] cpu=7 o_k=7 lbit=0xca cbit=0xff,35,7,1,1727086542,ff,0,0,0,0,[62124134301,14904248] 17
+03-01 08:18:48.828     0     0 I         : (0)[234:wdtk-0][wdk-c] cpu=0 o_k=0 lbit=0xcb cbit=0xff,34,7,1,1727086542,ff,0,0,0,0,[62124181455,14904202] 17
+03-01 08:18:48.828     0     0 I         : (2)[236:wdtk-2][wdk-c] cpu=2 o_k=2 lbit=0xcf cbit=0xff,30,7,1,1727086542,ff,0,0,0,0,[62124239532,14904144] 17
+03-01 08:18:48.828     0     0 I         : (4)[238:wdtk-4][wdk-c] cpu=4 o_k=4 lbit=0xdf cbit=0xff,20,7,1,1727086542,ff,0,0,0,0,[62124277763,14904106] 17
+03-01 08:18:48.828     0     0 I         : (5)[239:wdtk-5][thread:239] 2026-03-01 13:48:48.772840 UTC;android time 2026-03-01 13:48:48.772840
+03-01 08:18:48.828     0     0 I         : (5)[239:wdtk-5][wdk-k] cpu=5 o_k=5 lbit=0xff cbit=0xff,0,7,1,1727086542,ff,0,0,0,0,[62124296763,14904086] 17
+03-01 08:18:48.825   417   482 E HidlServiceManagement: getService: Potential race detected. The VINTF manifest is not being enforced. If a HAL server has a delay in starting and it is not in the manifest, it will not be retrieved. Please make sure all HALs on this device are in the VINTF manifest and enable PRODUCT_ENFORCE_VINTF_MANIFEST on this device (this is also enabled by PRODUCT_FULL_TREBLE). PRODUCT_ENFORCE_VINTF_MANIFEST will ensure that no race condition is possible here.
+03-01 08:18:48.932   270   270 I         : (4)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:48.953   301   301 E         : (2)[301:kworker/u16:4]real_SOC = 36, digit_SOC = 162, remainder = 63, UI_SOC = 36, cw_bat->capacity = 36
+03-01 08:18:49.076   417   417 W         : (6)[417:recovery]led1 duty=2
+03-01 08:18:49.077   417   417 I (6)[417:recovery]mt6360_pmu_fled mt6360_pmu_fled.0: mt6360_fled_set_mode set off mutex_lock +
+03-01 08:18:49.077   417   417 I (6)[417:recovery]mt6360_pmu_fled mt6360_pmu_fled.0: mt6360_fled_set_mode set off mutex_lock -
+03-01 08:18:49.077   417   417 I (6)[417:recovery]mt6360_pmu_fled mt6360_pmu_fled.0: mt6360_fled_set_mode set off
+03-01 08:18:49.160   328   328 I (2)[328:disp_echk]mtk_dsi_start_vdo_mode, vid_mode: 1
+03-01 08:18:49.190   132   132 W         : (1)[132:kworker/u16:1]<I>CTS-Core ESD protection work
+03-01 08:18:49.190   123   123 I (1)[123:dlpt_notify_thr]mt635x-auxadc mt635x-auxadc: name:BATADC, channel=0, adc_out=0x4da9, adc_result=3822
+03-01 08:18:49.192   123   123 I (1)[123:dlpt_notify_thr]mt635x-auxadc mt635x-auxadc: name:BATADC, channel=0, adc_out=0x4db1, adc_result=3823
+03-01 08:18:49.192   123   123 I         : (1)[123:dlpt_notify_thr][PBM] [ma_to_mw] 3823(mV) * 3384(mA) = 12937(mW)
+03-01 08:18:49.192   123   123 I         : (1)[123:dlpt_notify_thr][DLPT_final] 3384,36,36,1,5500
+03-01 08:18:49.200   301   301 W (2)[301:kworker/u16:4]FG_CW2015: get_charge_state : ac_online = 0    usb_online = 1
+03-01 08:18:49.200   301   301 W (2)[301:kworker/u16:4]FG_CW2015: cw_bat_work : charger_mod = 1, status = 1, capacity = 36, voltage = 3837
+03-01 08:18:49.201   364   364 I         : (2)[364:kworker/2:2][mtk_nanohub]sar aw_sar_ps_notify_callback
+03-01 08:18:49.201   364   364 I         : (2)[364:kworker/2:2][mtk_nanohub]sar1 aw_sar_ps_notify_callback
+03-01 08:18:49.201   364   364 E         : (2)[364:kworker/2:2][mtk_nanohub]sar ps present state not change
+03-01 08:18:49.202     0     0 I         : (1)[419:health@2.1-serv][fgauge_read_current] final current=1770 (ratio=1000)
+03-01 08:18:49.202     0     0 I         : (1)[419:health@2.1-serv][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:49.202     0     0 I         : (1)[419:health@2.1-serv][fg_get_current_iavg] -2276 1
+03-01 08:18:49.203     0     0 I         : (1)[419:health@2.1-serv][fgauge_read_current] final current=1770 (ratio=1000)
+03-01 08:18:49.203     0     0 I (1)[419:health@2.1-serv]time_to_full: 39545, remain:ui:66 mah:19443, fgcurrent:1770, qmax:2946
+03-01 08:18:49.409     0     0 W (0)[419:health@2.1-serv]healthd: battery l=36 v=3837 t=34.7 h=2 st=2 c=177000 fc=2946000 cc=0 chg=u
+03-01 08:18:49.409     0     0 I         : (0)[419:health@2.1-serv][fgauge_read_current] final current=1287 (ratio=1000)
+03-01 08:18:49.410     0     0 I         : (0)[419:health@2.1-serv][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:49.410     0     0 I         : (0)[419:health@2.1-serv][fg_get_current_iavg] -2276 1
+03-01 08:18:49.411     0     0 I         : (0)[419:health@2.1-serv][fgauge_read_current] final current=1495 (ratio=1000)
+03-01 08:18:49.411     0     0 I (0)[419:health@2.1-serv]time_to_full: 46819, remain:ui:66 mah:19443, fgcurrent:1495, qmax:2946
+03-01 08:18:49.827   417   482 I recovery: charge_status CHARGING, charging 1, status SUCCESS, capacity 36
+03-01 08:18:49.956   270   270 I         : (4)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:50.212   313   313 E         : (0)[313:resmon_main]resmon resmon resmon_process cur_loads:13 cur_iowait:0 cur_mem:5235
+03-01 08:18:50.480   293   293 I         : (1)[293:battery_thread][name:spm&][SPM] MCUSYSOFF wake up by , timer_out = 0, r13 = 0x84000e80, debug_flag = 0x0 0x0, r12 = 0x0, r12_ext = 0x0, raw_sta = 0x0 0x0 0x0, idle_sta = 0x101b3, req_sta =  0x5c00000 0x0 0x50000011 0x1e0000 0x0, cg_check_sta =0x0, isr = 0x0, rt_req_sta0 = 0x0 rt_req_sta1 = 0x0 rt_req_sta2 = 0xffffffff rt_req_sta3 = 0xffffffff dram_sw_con_3 = 0x0, raw_ext_sta = 0x184256, wake_misc = 0x0, pcm_flag = 0x0 0x0 0x0 0x0, req = 0x80,  clk_settle = 0x60fe,
+03-01 08:18:50.524   293   293 I         : (1)[293:battery_thread][fg_drv_update_hw_status]=>
+03-01 08:18:50.524   293   293 I         : (1)[293:battery_thread][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:50.524   293   293 I         : (1)[293:battery_thread][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:50.524   293   293 I (1)[293:battery_thread][fg_update_sw_iavg]diff time: 61 iavg:0
+03-01 08:18:50.525   293   293 I         : (1)[293:battery_thread][fgauge_read_columb_internal] CAR=-55 r_fg_value=50 car_tune_value=1000
+03-01 08:18:50.525   293   293 I         : (1)[293:battery_thread][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:50.525   293   293 I (1)[293:battery_thread][fg_update_sw_iavg]time: 61 car:-55 -55 iavg:-3245 ht:-245 lt:-6245 gap:3000
+03-01 08:18:50.525   293   293 I         : (1)[293:battery_thread][fgauge_read_boot_battery_plug_out_status] rtc_invalid 0 plugout 0 bat_plug_out_time 0 sp3:0xa2 pl:0 0
+03-01 08:18:50.525   293   293 I         : (1)[293:battery_thread][fgauge_read_current] final current=2221 (ratio=1000)
+03-01 08:18:50.526   293   293 I         : (1)[293:battery_thread][fgauge_read_columb_internal] CAR=-55 r_fg_value=50 car_tune_value=1000
+03-01 08:18:50.528   293   293 I (1)[293:battery_thread]mt635x-auxadc mt635x-auxadc: name:BATADC, channel=0, adc_out=0x4dae, adc_result=3823
+03-01 08:18:50.561   293   293 I (3)[293:battery_thread]mt635x-auxadc mt635x-auxadc: name:VBIF, channel=11, adc_out=0x9ec, adc_result=2790
+03-01 08:18:50.561   293   293 I         : (3)[293:battery_thread][fgauge_read_current] final current=2050 (ratio=1000)
+03-01 08:18:50.561   293   293 I         : (3)[293:battery_thread][CH3_DBG] bat_cur = 2050
+03-01 08:18:50.562   293   293 I (3)[293:battery_thread]mt635x-auxadc mt635x-auxadc: name:BAT_TEMP, channel=3, adc_out=0x240, adc_result=632
+03-01 08:18:50.562   293   293 I         : (3)[293:battery_thread][fgauge_read_current] final current=2050 (ratio=1000)
+03-01 08:18:50.562   293   293 I         : (3)[293:battery_thread][BattVoltToTemp] 630 24000 2788 -2
+03-01 08:18:50.562   293   293 I         : (3)[293:battery_thread][force_get_tbat] 632,630,1,205,0,347 r:100 0 0
+03-01 08:18:50.562   293   293 I (3)[293:battery_thread][force_get_tbat] t: 34 precise:347
+03-01 08:18:50.562   293   293 I         : (3)[293:battery_thread]lbat 0 0 0 0
+03-01 08:18:50.563   293   293 I (3)[293:battery_thread]car[-55,147,-147,294,-164, cycle_car:-56,ncar:56] c: 1 2221 vbat:3823 vbus:4743 soc:36 36 gm3:0 0 0 0
+03-01 08:18:50.563   293   293 I         : (3)[293:battery_thread][fgauge_read_columb_internal] CAR=-55 r_fg_value=50 car_tune_value=1000
+03-01 08:18:50.563   293   293 I         : (3)[293:battery_thread][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:50.563   293   293 I         : (3)[293:battery_thread][fg_get_current_iavg] -2276 1
+03-01 08:18:50.563   293   293 I         : (3)[293:battery_thread][fg_bat_nafg][fgauge_get_nag_cnt] 0 [25_16 0 15_0 0]
+03-01 08:18:50.563   293   293 I (3)[293:battery_thread][fg_nafg_monitor]time: 63 nafg_cnt:0, now:63, last_t:0
+03-01 08:18:50.563   293   293 I (3)[293:battery_thread]tmp: 34 65535 65535 hcar2:294 lcar2:164 time:63 sw_iavg:-3245 -2276 1 nafg_m:0 0 0
+03-01 08:18:50.564   293   293 I         : (3)[293:battery_thread][fgauge_read_columb_internal] CAR=-55 r_fg_value=50 car_tune_value=1000
+03-01 08:18:50.564   293   293 I         : (3)[293:battery_thread][fgauge_read_current] final current=2111 (ratio=1000)
+03-01 08:18:50.564   293   293 I         : (3)[293:battery_thread][fgauge_get_hw_version]hw_id=22832
+03-01 08:18:50.564   293   293 I         : (3)[293:battery_thread][fg_get_current_iavg] -2276 1
+03-01 08:18:50.565   293   293 I (3)[293:battery_thread]mt635x-auxadc mt635x-auxadc: name:VBIF, channel=11, adc_out=0x9ef, adc_result=2793
+03-01 08:18:50.565   293   293 I         : (3)[293:battery_thread][fgauge_read_current] final current=2105 (ratio=1000)
+03-01 08:18:50.565   293   293 I         : (3)[293:battery_thread][CH3_DBG] bat_cur = 2105
+03-01 08:18:50.567   293   293 I (3)[293:battery_thread]mt635x-auxadc mt635x-auxadc: name:BAT_TEMP, channel=3, adc_out=0x240, adc_result=632
+03-01 08:18:50.567   293   293 I         : (3)[293:battery_thread][fgauge_read_current] final current=2154 (ratio=1000)
+03-01 08:18:50.567   293   293 I         : (3)[293:battery_thread][BattVoltToTemp] 630 24000 2791 -2
+03-01 08:18:50.567   293   293 I         : (3)[293:battery_thread][force_get_tbat] 632,630,1,215,0,348 r:100 0 0
+03-01 08:18:50.567   293   293 I (3)[293:battery_thread][force_get_tbat] t: 34 precise:348
+03-01 08:18:50.567   293   293 I         : (3)[293:battery_thread][fg_is_battery_exist] PMIC_RGS_BATON_UNDET = 1
+03-01 08:18:50.567   293   293 I         : (3)[293:battery_thread]GM3log1 63 63 3837 2111 -2276 33840 -335 34 1 1 192 0 0
+03-01 08:18:50.567   293   293 I (3)[293:battery_thread]battery_get_boot_mode: boot mode=2
+03-01 08:18:50.664   293   293 I         : (2)[293:battery_thread]GM3log2 63 0 0 0 0 0 0 0 4756
+03-01 08:18:50.664   293   293 I         : (2)[293:battery_thread]GM3log3 63 0 37548 -2459 0
+03-01 08:18:50.664   293   293 I         : (2)[293:battery_thread]GM3log4 1 34 0 0 0 0 0 1 1 1 38
+03-01 08:18:50.664   293   293 I         : (2)[293:battery_thread]GM3log int 63 63 0 0 0 0
+03-01 08:18:50.664   293   293 I         : (2)[293:battery_thread]GM3log phone_state 0 0
+03-01 08:18:50.664   293   293 I (2)[293:battery_thread]GM3 car: -55 car_diff:-280
+03-01 08:18:50.755   118   118 I         : (0)[118:watchdogd][wdtk] kick watchdog
+03-01 08:18:50.829   417   482 E HidlServiceManagement: getService: Potential race detected. The VINTF manifest is not being enforced. If a HAL server has a delay in starting and it is not in the manifest, it will not be retrieved. Please make sure all HALs on this device are in the VINTF manifest and enable PRODUCT_ENFORCE_VINTF_MANIFEST on this device (this is also enabled by PRODUCT_FULL_TREBLE). PRODUCT_ENFORCE_VINTF_MANIFEST will ensure that no race condition is possible here.
+03-01 08:18:50.904   293   293 I (2)[293:battery_thread][fg_bat_nafg][fgauge_get_nag_dltv] mV: Reg [0:0]
+03-01 08:18:50.904   293   293 I         : (2)[293:battery_thread][fg_bat_nafg][fgauge_get_nag_cnt] 0 [25_16 0 15_0 0]
+03-01 08:18:50.904   293   293 I (2)[293:battery_thread][fg_bat_nafg][fgauge_get_nag_c_dltv] mV: Reg[0:0] [b10:0][26_16(0x0000) 15_00(0x0000)] corner:0
+03-01 08:18:50.904   293   293 I         : (2)[293:battery_thread]GM3log-nint-nafg 63 63 0 0 0 0 0
+03-01 08:18:50.904   293   293 I (2)[293:battery_thread]battery_get_boot_mode: boot mode=2
+03-01 08:18:50.904   293   293 I         : (2)[293:battery_thread]mtk_battery boot mode =2
+03-01 08:18:50.904   293   293 I         : (2)[293:battery_thread][wakeup_fg_algo_recovery] intr_num=0x2000000
+03-01 08:18:50.980   270   270 I         : (4)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:51.173   328   328 I (2)[328:disp_echk]mtk_dsi_start_vdo_mode, vid_mode: 1
+03-01 08:18:51.204   300   300 W         : (3)[300:kworker/u16:3]<I>CTS-Core ESD protection work
+03-01 08:18:51.831   417   482 I recovery: charge_status CHARGING, charging 1, status SUCCESS, capacity 36
+03-01 08:18:52.004   270   270 I         : (4)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:52.833   417   482 E HidlServiceManagement: getService: Potential race detected. The VINTF manifest is not being enforced. If a HAL server has a delay in starting and it is not in the manifest, it will not be retrieved. Please make sure all HALs on this device are in the VINTF manifest and enable PRODUCT_ENFORCE_VINTF_MANIFEST on this device (this is also enabled by PRODUCT_FULL_TREBLE). PRODUCT_ENFORCE_VINTF_MANIFEST will ensure that no race condition is possible here.
+03-01 08:18:53.028    53    53 I (6)[53:kworker/6:1][SCP] scp_ipi_send: SCP A not ready
+03-01 08:18:53.028   270   270 I         : (0)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:53.202   328   328 I (2)[328:disp_echk]mtk_dsi_start_vdo_mode, vid_mode: 1
+03-01 08:18:53.220   301   301 W         : (2)[301:kworker/u16:4]<I>CTS-Core ESD protection work
+03-01 08:18:53.540    53    53 E         : (6)[53:kworker/6:1][mtk_nanohub_ipi] IPI_SENSOR transfer timeout!
+03-01 08:18:53.540    53    53 E         : (6)[53:kworker/6:1][mtk_nanohub]mtk_nanohub_send_timestamp_wake_locked fail!
+03-01 08:18:53.835   417   482 I recovery: charge_status CHARGING, charging 1, status SUCCESS, capacity 36
+03-01 08:18:54.052   270   270 I         : (0)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:54.292     0     0 I -(2)[0:swapper/2]mtk_charger_alarm_timer_func: not suspend, wake up charger
+03-01 08:18:54.292   356   356 I         : (2)[356:charger_thread][fgauge_read_current] final current=2844 (ratio=1000)
+03-01 08:18:54.326   356   356 I (2)[356:charger_thread]mt635x-auxadc mt635x-auxadc: name:VBIF, channel=11, adc_out=0x9ed, adc_result=2791
+03-01 08:18:54.327   356   356 I         : (2)[356:charger_thread][fgauge_read_current] final current=2679 (ratio=1000)
+03-01 08:18:54.327   356   356 I         : (2)[356:charger_thread][CH3_DBG] bat_cur = 2679
+03-01 08:18:54.328   356   356 I (2)[356:charger_thread]mt635x-auxadc mt635x-auxadc: name:BAT_TEMP, channel=3, adc_out=0x240, adc_result=632
+03-01 08:18:54.328   356   356 I         : (2)[356:charger_thread][fgauge_read_current] final current=2679 (ratio=1000)
+03-01 08:18:54.328   356   356 I         : (2)[356:charger_thread][BattVoltToTemp] 630 24000 2789 -2
+03-01 08:18:54.328   356   356 I         : (2)[356:charger_thread][force_get_tbat] 632,630,1,267,0,347 r:100 0 0
+03-01 08:18:54.328   356   356 I (2)[356:charger_thread][force_get_tbat] t: 34 precise:347
+03-01 08:18:54.328   356   356 I (2)[356:charger_thread]Vbat=3837,Ibat=2844,I=0,VChr=4781,T=34,Soc=36: 36,CT:1:1 hv:1 pd:0:1
+03-01 08:18:54.328   356   356 I (2)[356:charger_thread]mtk_charger_start_timer: alarm timer start:0, 77 568396849
+03-01 08:18:54.328   356   356 I         : -(2)[356:charger_thread]alarmtimer_enqueue, 77568396849
+03-01 08:18:54.329   356   356 I (2)[356:charger_thread]mt635x-auxadc mt635x-auxadc: name:VBIF, channel=11, adc_out=0x9ef, adc_result=2793
+03-01 08:18:54.330   356   356 I         : (2)[356:charger_thread][fgauge_read_current] final current=2539 (ratio=1000)
+03-01 08:18:54.330   356   356 I         : (2)[356:charger_thread][CH3_DBG] bat_cur = 2539
+03-01 08:18:54.331   356   356 I (1)[356:charger_thread]mt635x-auxadc mt635x-auxadc: name:BAT_TEMP, channel=3, adc_out=0x240, adc_result=632
+03-01 08:18:54.331   356   356 I         : (1)[356:charger_thread][fgauge_read_current] final current=1867 (ratio=1000)
+03-01 08:18:54.331   356   356 I         : (1)[356:charger_thread][BattVoltToTemp] 631 24000 2792 -1
+03-01 08:18:54.331   356   356 I         : (1)[356:charger_thread][force_get_tbat] 632,631,1,186,0,347 r:100 0 0
+03-01 08:18:54.331   356   356 I (1)[356:charger_thread][force_get_tbat] t: 34 precise:347
+03-01 08:18:54.331   356   356 I         : (1)[356:charger_thread][fg_is_battery_exist] PMIC_RGS_BATON_UNDET = 1
+03-01 08:18:54.331   356   356 I         : (1)[356:charger_thread][fg_is_battery_exist] PMIC_RGS_BATON_UNDET = 1
+03-01 08:18:54.331   356   356 I         : (1)[356:charger_thread][fg_is_battery_exist] PMIC_RGS_BATON_UNDET = 1
+03-01 08:18:54.377   356   356 I (1)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_get_tchg: tchg = 37
+03-01 08:18:54.508   356   356 I (1)[356:charger_thread]tmp: 34 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 sc:0 1 1
+03-01 08:18:54.508   356   356 I         : (1)[356:charger_thread]mtk_switch_charging_run [1 0], timer=2
+03-01 08:18:54.509   356   356 I (1)[356:charger_thread]mt635x-auxadc mt635x-auxadc: name:VBIF, channel=11, adc_out=0x9ed, adc_result=2791
+03-01 08:18:54.509   356   356 I         : (1)[356:charger_thread][fgauge_read_current] final current=1953 (ratio=1000)
+03-01 08:18:54.509   356   356 I         : (1)[356:charger_thread][CH3_DBG] bat_cur = 1953
+03-01 08:18:54.511   356   356 I         : (1)[356:charger_thread][fgauge_read_current] final current=2050 (ratio=1000)
+03-01 08:18:54.511   356   356 I         : (1)[356:charger_thread][BattVoltToTemp] 631 24000 2789 -2
+03-01 08:18:54.511   356   356 I         : (1)[356:charger_thread][force_get_tbat] 633,631,1,205,0,347 r:100 0 0
+03-01 08:18:54.511   356   356 I (1)[356:charger_thread][force_get_tbat] t: 34 precise:347
+03-01 08:18:54.512   356   356 I         : (1)[356:charger_thread][fgauge_read_current] final current=2050 (ratio=1000)
+03-01 08:18:54.512   356   356 I         : (1)[356:charger_thread][CH3_DBG] bat_cur = 2050
+03-01 08:18:54.514   356   356 I         : (3)[356:charger_thread][fgauge_read_current] final current=1763 (ratio=1000)
+03-01 08:18:54.514   356   356 I         : (3)[356:charger_thread][BattVoltToTemp] 632 24000 2789 -1
+03-01 08:18:54.514   356   356 I         : (3)[356:charger_thread][force_get_tbat] 633,632,1,176,0,346 r:100 0 0
+03-01 08:18:54.514   356   356 I (3)[356:charger_thread][force_get_tbat] t: 34 precise:346
+03-01 08:18:54.514   356   356 I (3)[356:charger_thread]pe40_ready: 0 pps:0 hv:1 thermal:-1,-1 tmp:34,39,16
+03-01 08:18:54.514   356   356 E (3)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_run_aicc: mivr stat not act
+03-01 08:18:54.514   356   356 W         : (3)[356:charger_thread]PRIZE master  charge current 500000:500000
+03-01 08:18:54.514   356   356 I (3)[356:charger_thread]sck: en:0 pid:0 500000 0 500000 -1 0 thermal.dis:0
+03-01 08:18:54.514   356   356 I (3)[356:charger_thread]force: 0 thermal:-1,-1 pe4:-1,-1,0 setting:500 500 sc:500,0,0 type:1 usb_unlimited:0 usbif:0 usbsm:2 aicl:-1 atm:0
+03-01 08:18:54.818   356   356 I (3)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: ICHG = 500mA, AICR = 500mA, MIVR = 4200mV, IEOC = 150mA, CV = 4450mV
+03-01 08:18:54.818   356   356 I (3)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: VBUS = 4787mV, IBUS = 432mA, VSYS = 3828mV, VBAT = 3826mV, IBAT = 202mA
+03-01 08:18:54.819   356   356 I (3)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: CHG_EN = 1, CHG_STATUS = progress, CHG_STAT1 = 0xA0
+03-01 08:18:54.819   356   356 I (3)[356:charger_thread]mt6360_pmu_chg mt6360_pmu_chg.3.auto: mt6360_dump_registers: CHG_CTRL1 = 0x00, CHG_CTRL2 = 0x1B
+03-01 08:18:54.837   417   482 E HidlServiceManagement: getService: Potential race detected. The VINTF manifest is not being enforced. If a HAL server has a delay in starting and it is not in the manifest, it will not be retrieved. Please make sure all HALs on this device are in the VINTF manifest and enable PRODUCT_ENFORCE_VINTF_MANIFEST on this device (this is also enabled by PRODUCT_FULL_TREBLE). PRODUCT_ENFORCE_VINTF_MANIFEST will ensure that no race condition is possible here.
+03-01 08:18:55.076   270   270 I         : (0)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:55.236   300   300 W         : (0)[300:kworker/u16:3]<I>CTS-Core ESD protection work
+03-01 08:18:55.248   328   328 I (2)[328:disp_echk]mtk_dsi_start_vdo_mode, vid_mode: 1
+03-01 08:18:55.839   417   482 I recovery: charge_status CHARGING, charging 1, status SUCCESS, capacity 36
+03-01 08:18:55.592   270   270 I         : (0)[270:mddp_rx][name:spm&][SPM] MCUSYSOFF wake up by , timer_out = 0, r13 = 0x84000e80, debug_flag = 0x0 0x0, r12 = 0x0, r12_ext = 0x0, raw_sta = 0x0 0x0 0x0, idle_sta = 0x301b3, req_sta =  0x5c00000 0x0 0x50000011 0x1e0000 0x0, cg_check_sta =0x0, isr = 0x0, rt_req_sta0 = 0x0 rt_req_sta1 = 0x0 rt_req_sta2 = 0xffffffff rt_req_sta3 = 0xffffffff dram_sw_con_3 = 0x0, raw_ext_sta = 0x184256, wake_misc = 0x0, pcm_flag = 0x0 0x0 0x0 0x0, req = 0x80,  clk_settle = 0x60fe,
+03-01 08:18:56.100   270   270 I         : (0)[270:mddp_rx]port ccci_0_200 read data fail when md_state = 0
+03-01 08:18:56.356   313   313 E         : (0)[313:resmon_main]resmon resmon resmon_process cur_loads:14 cur_iowait:0 cur_mem:5235
